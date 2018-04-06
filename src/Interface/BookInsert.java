@@ -36,6 +36,7 @@ public class BookInsert extends javax.swing.JFrame {
         jcb_subject.addItem("Agronomia");
         jcb_subject.addItem("Educacion");
         jcb_subject.addItem("Informatica");
+        jcb_subject.addItem("Prueba");
         
         //formato de seleccion de año
         jcb_condition.removeAllItems();
