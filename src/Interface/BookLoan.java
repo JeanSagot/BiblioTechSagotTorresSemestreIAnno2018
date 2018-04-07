@@ -16,8 +16,9 @@ public class BookLoan extends javax.swing.JFrame {
     String matrix1 [][];
     
     public BookLoan() {
-        initComponents();
+         initComponents();
          showMatrix();
+         Autocomplete();
     }
 
     @SuppressWarnings("unchecked")
@@ -43,8 +44,6 @@ public class BookLoan extends javax.swing.JFrame {
         jl_bookname = new javax.swing.JLabel();
         jb_accept = new javax.swing.JButton();
         jseparator = new javax.swing.JSeparator();
-        jtf_returnDate = new com.toedter.calendar.JDateChooser();
-        jtf_outDate = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -168,8 +167,6 @@ public class BookLoan extends javax.swing.JFrame {
 
         jseparator.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jseparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, 10, 470));
-        jPanel1.add(jtf_returnDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 330, 180, 30));
-        jPanel1.add(jtf_outDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 180, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 580));
 
@@ -189,22 +186,21 @@ public class BookLoan extends javax.swing.JFrame {
 
     private void jtf_findBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtf_findBookMouseClicked
         jtf_findBook.setText("");
-        for (int i=0; i<matrix1.length; i++){
-          autocomplete.addItem(matrix1[i][0]);}
     }//GEN-LAST:event_jtf_findBookMouseClicked
 
-    public void showMatrix(){
-        autocomplete = new TextAutoCompleter(jtf_findBook);
+   public void showMatrix(){
+        
         try {
-            ArrayList<Books> arrayListBooks = file.readSerialize();
-            String matrix [][] = new String[arrayListBooks.size()][4];
-            matrix1 = new String[arrayListBooks.size()][0];
-            
-            for(int i=0; i<arrayListBooks.size(); i++){
-                matrix [i][0] = arrayListBooks.get(i).getName();
-                matrix [i][1] = arrayListBooks.get(i).getSubject();
-                matrix [i][2] = arrayListBooks.get(i).getCondition();
-                matrix [i][3] = arrayListBooks.get(i).getType();
+            ArrayList<Object> arrayListObjects = file.readSerializeBooks();
+            String matrix [][] = new String[arrayListObjects.size()][4];
+            matrix1 = new String[arrayListObjects.size()][0];
+            ArrayList<Books> arrayListBooksr = new ArrayList<Books>();
+            for(int i=0; i<arrayListObjects.size(); i++){
+                arrayListBooksr.add((Books)arrayListObjects.get(i));
+                matrix [i][0] = arrayListBooksr.get(i).getName();
+                matrix [i][1] = arrayListBooksr.get(i).getSubject();
+                matrix [i][2] = arrayListBooksr.get(i).getCondition();
+                matrix [i][3] = arrayListBooksr.get(i).getType();
             }
             this.matrix1=matrix;
             jt_books.setModel(new javax.swing.table.DefaultTableModel(
@@ -216,6 +212,13 @@ public class BookLoan extends javax.swing.JFrame {
             Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+   public void Autocomplete(){
+        autocomplete = new TextAutoCompleter(jtf_findBook);
+        for (int i=0; i<matrix1.length; i++){
+          autocomplete.addItem(matrix1[i][0]+" (Libro)");
+
         }
     }
     /**
@@ -273,7 +276,5 @@ public class BookLoan extends javax.swing.JFrame {
     private javax.swing.JSeparator jseparator;
     private javax.swing.JTable jt_books;
     private javax.swing.JTextField jtf_findBook;
-    private com.toedter.calendar.JDateChooser jtf_outDate;
-    private com.toedter.calendar.JDateChooser jtf_returnDate;
     // End of variables declaration//GEN-END:variables
 }
