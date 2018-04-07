@@ -9,8 +9,12 @@ import AppPackage.AnimationClass;
 import File.studentsRegistry;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import domain.students;
+import java.util.logging.Formatter;
 /**
  *
  * @author jeanp
@@ -24,7 +28,7 @@ public class StudentMenu extends javax.swing.JFrame {
     sSlide slide;
     studentsRegistry studRegistry; 
     File fileStudent;
-    int consecutive;
+    students studs;
     
     
     public StudentMenu() throws IOException {
@@ -34,7 +38,7 @@ public class StudentMenu extends javax.swing.JFrame {
         slide = new sSlide();
         
         //para que el focus empiece en el boton
-        jb_addStudent.requestFocus();
+        jb_logIn.requestFocus();
         
         //formato de carreras jcombo
         jcb_career1.removeAllItems();
@@ -50,9 +54,14 @@ public class StudentMenu extends javax.swing.JFrame {
         jcb_year.addItem("2021");
         jcb_year.addItem("2022");
         
+        jb_addStudent1.setEnabled(false);
+        JP_Register.setVisible(false);
+        
+        jl_bookIcon.setEnabled(false);
+        jl_materialIcon.setEnabled(false);
+        
         fileStudent = new File("./Registro de estudiantes.dat");
         studRegistry = new studentsRegistry(fileStudent);
-        consecutive = studRegistry.getConsecutive();
     }
 
     /**
@@ -77,18 +86,19 @@ public class StudentMenu extends javax.swing.JFrame {
         jl_Carrera2 = new javax.swing.JLabel();
         jcb_career1 = new javax.swing.JComboBox<>();
         jl_showCarnet = new javax.swing.JLabel();
+        jb_ViewCarnet = new javax.swing.JButton();
         JP_login = new javax.swing.JPanel();
         jl_userIcon = new javax.swing.JLabel();
         jtf_Carnet = new javax.swing.JTextField();
         js_carnetLine = new javax.swing.JSeparator();
         jl_Users = new javax.swing.JLabel();
         jl_menu = new javax.swing.JLabel();
-        jb_addStudent = new javax.swing.JButton();
+        jb_logIn = new javax.swing.JButton();
         jl_menuHome = new javax.swing.JLabel();
         jl_menuAbout = new javax.swing.JLabel();
         jl_Carnet2 = new javax.swing.JLabel();
         jb_goRegister = new javax.swing.JButton();
-        jp_home = new javax.swing.JPanel();
+        jp_body = new javax.swing.JPanel();
         jl_materialIcon = new javax.swing.JLabel();
         jl_bookInfo = new javax.swing.JLabel();
         jl_bookIcon = new javax.swing.JLabel();
@@ -101,7 +111,6 @@ public class StudentMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1550, 580));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -128,7 +137,7 @@ public class StudentMenu extends javax.swing.JFrame {
         js_carnetLine1.setBackground(new java.awt.Color(60, 63, 65));
         js_carnetLine1.setForeground(new java.awt.Color(45, 45, 45));
         js_carnetLine1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        JP_Register.add(js_carnetLine1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 190, 10));
+        JP_Register.add(js_carnetLine1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 160, 10));
 
         jl_Users1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Add_User_Male_32px.png"))); // NOI18N
         JP_Register.add(jl_Users1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, -1));
@@ -175,11 +184,17 @@ public class StudentMenu extends javax.swing.JFrame {
             }
         });
         JP_Register.add(jcb_career1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 130, 30));
+        JP_Register.add(jl_showCarnet, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 160, 20));
 
-        jl_showCarnet.setText("CARNET");
-        JP_Register.add(jl_showCarnet, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 380, 190, 20));
+        jb_ViewCarnet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Eye_32px.png"))); // NOI18N
+        jb_ViewCarnet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_ViewCarnetMouseClicked(evt);
+            }
+        });
+        JP_Register.add(jb_ViewCarnet, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 373, 40, 30));
 
-        getContentPane().add(JP_Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 0, 270, 580));
+        getContentPane().add(JP_Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(-280, 0, 270, 580));
 
         JP_login.setBackground(new java.awt.Color(255, 255, 255));
         JP_login.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -191,7 +206,6 @@ public class StudentMenu extends javax.swing.JFrame {
         JP_login.add(jl_userIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 130, 130));
 
         jtf_Carnet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jtf_Carnet.setForeground(new java.awt.Color(153, 153, 153));
         jtf_Carnet.setText("Ingrese carnet");
         jtf_Carnet.setBorder(null);
         jtf_Carnet.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -219,17 +233,17 @@ public class StudentMenu extends javax.swing.JFrame {
         });
         JP_login.add(jl_menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, -1));
 
-        jb_addStudent.setBackground(new java.awt.Color(204, 204, 204));
-        jb_addStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Enter_32px.png"))); // NOI18N
-        jb_addStudent.setText("Enter");
-        jb_addStudent.setBorderPainted(false);
-        jb_addStudent.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jb_addStudent.addActionListener(new java.awt.event.ActionListener() {
+        jb_logIn.setBackground(new java.awt.Color(204, 204, 204));
+        jb_logIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Enter_32px.png"))); // NOI18N
+        jb_logIn.setText("Enter");
+        jb_logIn.setBorderPainted(false);
+        jb_logIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_logIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_addStudentActionPerformed(evt);
+                jb_logInActionPerformed(evt);
             }
         });
-        JP_login.add(jb_addStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, 100, 50));
+        JP_login.add(jb_logIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, 100, 50));
 
         jl_menuHome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Home_32px.png"))); // NOI18N
@@ -259,13 +273,13 @@ public class StudentMenu extends javax.swing.JFrame {
                 jb_goRegisterActionPerformed(evt);
             }
         });
-        JP_login.add(jb_goRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, 100, -1));
+        JP_login.add(jb_goRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 470, 100, -1));
 
         getContentPane().add(JP_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 580));
 
-        jp_home.setBackground(new java.awt.Color(255, 255, 255));
-        jp_home.setForeground(new java.awt.Color(204, 204, 204));
-        jp_home.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jp_body.setBackground(new java.awt.Color(255, 255, 255));
+        jp_body.setForeground(new java.awt.Color(204, 204, 204));
+        jp_body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jl_materialIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_materialIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/multiple-device-support.png"))); // NOI18N
@@ -280,14 +294,14 @@ public class StudentMenu extends javax.swing.JFrame {
                 jl_materialIconMouseExited(evt);
             }
         });
-        jp_home.add(jl_materialIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 270, 260));
+        jp_body.add(jl_materialIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 270, 260));
 
         jl_bookInfo.setBackground(new java.awt.Color(78, 168, 214));
         jl_bookInfo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jl_bookInfo.setForeground(new java.awt.Color(78, 168, 214));
         jl_bookInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_bookInfo.setText("Prestamos de libros");
-        jp_home.add(jl_bookInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 270, 30));
+        jp_body.add(jl_bookInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 270, 30));
 
         jl_bookIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_bookIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/books-stack-of-three.png"))); // NOI18N
@@ -302,19 +316,19 @@ public class StudentMenu extends javax.swing.JFrame {
                 jl_bookIconMouseExited(evt);
             }
         });
-        jp_home.add(jl_bookIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 270, 260));
+        jp_body.add(jl_bookIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 270, 260));
 
         jl_materialInfo.setBackground(new java.awt.Color(78, 168, 214));
         jl_materialInfo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jl_materialInfo.setForeground(new java.awt.Color(78, 168, 214));
         jl_materialInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_materialInfo.setText("Prestamo de material audiovisual");
-        jp_home.add(jl_materialInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, 270, 30));
+        jp_body.add(jl_materialInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 410, 270, 30));
 
         sep_home.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jp_home.add(sep_home, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 10, 310));
+        jp_body.add(sep_home, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 10, 310));
 
-        getContentPane().add(jp_home, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 760, 520));
+        getContentPane().add(jp_body, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 780, 520));
 
         jp_header.setBackground(new java.awt.Color(78, 168, 214));
         jp_header.setForeground(new java.awt.Color(78, 168, 214));
@@ -332,7 +346,7 @@ public class StudentMenu extends javax.swing.JFrame {
                 jb_backActionPerformed(evt);
             }
         });
-        jp_header.add(jb_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 40, 50));
+        jp_header.add(jb_back, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 0, 40, 60));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logo.png"))); // NOI18N
@@ -343,7 +357,7 @@ public class StudentMenu extends javax.swing.JFrame {
         jLabel3.setText("For learning. For life.");
         jp_header.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 190, 60));
 
-        getContentPane().add(jp_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 760, 60));
+        getContentPane().add(jp_header, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 780, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -396,17 +410,42 @@ public class StudentMenu extends javax.swing.JFrame {
         jtf_Carnet.setText("");
     }//GEN-LAST:event_jtf_CarnetMouseClicked
 
-    private void jb_addStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_addStudentActionPerformed
-       
-    }//GEN-LAST:event_jb_addStudentActionPerformed
+    private void jb_logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_logInActionPerformed
+     BookLoan booloan= new BookLoan();
+     booloan.setVisible(true);
+        this.setVisible(false); 
+     
+        String carnet = makeCarnet(jcb_career1.getSelectedItem()+"",
+                                      jcb_year.getSelectedItem()+""); 
+        try {
+            if(studRegistry.findCarnet(carnet) == true || jtf_Carnet.getText().equalsIgnoreCase("root")){
+                JOptionPane.showMessageDialog(null, "Bienvenido!");
+                jl_bookIcon.setEnabled(true);
+                jl_materialIcon.setEnabled(true);
+                jtf_Carnet.setEnabled(false);
+                jb_goRegister.setEnabled(false);
+                jb_logIn.setEnabled(false);
+                    }else
+                JOptionPane.showMessageDialog(null, "No se ha encontrado dentro del sistema! \n Proceda a registrarse.");
+                
+                
+            
+        } catch (IOException ex) {
+            Logger.getLogger(StudentMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jb_logInActionPerformed
 
     private void jb_goRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_goRegisterActionPerformed
         slide.jPanelXDerecha(-280, 0, 10, 5, JP_Register);
-        
+        JP_login.setVisible(false);
+        JP_Register.setVisible(true);
     }//GEN-LAST:event_jb_goRegisterActionPerformed
 
     private void jb_goBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_goBackActionPerformed
-        slide.jPanelXIzquierda(0, -280, 10, 5, JP_Register);
+        //slide.jPanelXIzquierda(0, -280, 10, 5, JP_Register);
+        JP_login.setVisible(true);
+        JP_Register.setVisible(false);
+        jb_back.requestFocus();
     }//GEN-LAST:event_jb_goBackActionPerformed
 
     private void jcb_career1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb_career1ActionPerformed
@@ -414,19 +453,61 @@ public class StudentMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jcb_career1ActionPerformed
 
     private void jb_addStudent1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_addStudent1ActionPerformed
-        String career = (String) jcb_career1.getSelectedItem();
-        String year = (String) jcb_year.getSelectedItem();
-        String carnet;
-        
-        
-        char charCareer = studRegistry.extractCareer(career);
-        int firstNumber = studRegistry.extractNumber(Integer.parseInt(year));
-        
-        carnet = charCareer+firstNumber+studentsRegistry.consecFormat("0000", consecutive);
+        String carnet = makeCarnet(jcb_career1.getSelectedItem()+"",
+                                      jcb_year.getSelectedItem()+""); 
+        try {
+            
+            if(studRegistry.findCarnet(carnet) == false){
+            studs = new students(jcb_career1.getSelectedItem()+"", Integer.parseInt(jcb_year.getSelectedItem()+""), carnet);
+            studRegistry.addEndRecord(studs);
+            JOptionPane.showMessageDialog(null, "El estudiante se ingreso correctamente");
+            JP_Register.setVisible(false);
+            JP_login.setVisible(true);
+            jb_addStudent1.setEnabled(false);
+            jb_addStudent1.requestFocus();
+            
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "El estudiante ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(StudentMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_jb_addStudent1ActionPerformed
 
+    private void jb_ViewCarnetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_ViewCarnetMouseClicked
+        String carnet = makeCarnet(jcb_career1.getSelectedItem()+"",
+                                      jcb_year.getSelectedItem()+"");
+        jl_showCarnet.setText(carnet);
+        jb_addStudent1.setEnabled(true);
+    }//GEN-LAST:event_jb_ViewCarnetMouseClicked
+
     
+    //Se hace el carnet segun lo que escogio el estudiante
+    public String makeCarnet(String career, String year){
+        char firstCareer, lastYear;
+        String carnet;
+        int carnetConsec = studRegistry.fileSize();
+        String formatCarnet = carnetFormat("00", carnetConsec);
+        
+        
+        
+        
+        firstCareer = career.charAt(0);
+        lastYear = year.charAt(year.length()-1);
+        
+        carnet =Character.toString(firstCareer)+Character.toString(lastYear)+formatCarnet;
+        
+        return carnet;
+    }
+    
+    //metodo para dar formato al carnet
+    static public String carnetFormat(String pattern, double value ) {
+      DecimalFormat myFormatter = new DecimalFormat(pattern);
+      String output = myFormatter.format(value);
+      return output;
+   }
     /**
      * @param args the command line arguments
      */
@@ -474,11 +555,12 @@ public class StudentMenu extends javax.swing.JFrame {
     private javax.swing.JPanel JP_login;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JButton jb_addStudent;
+    private javax.swing.JButton jb_ViewCarnet;
     private javax.swing.JButton jb_addStudent1;
     private javax.swing.JButton jb_back;
     private javax.swing.JButton jb_goBack;
     private javax.swing.JButton jb_goRegister;
+    private javax.swing.JButton jb_logIn;
     private javax.swing.JComboBox<String> jcb_career1;
     private javax.swing.JComboBox<String> jcb_year;
     private javax.swing.JLabel jl_Carnet2;
@@ -498,8 +580,8 @@ public class StudentMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jl_userIcon;
     private javax.swing.JLabel jl_userIcon1;
     private javax.swing.JLabel jlb_plusSign;
+    private javax.swing.JPanel jp_body;
     private javax.swing.JPanel jp_header;
-    private javax.swing.JPanel jp_home;
     private javax.swing.JSeparator js_carnetLine;
     private javax.swing.JSeparator js_carnetLine1;
     private javax.swing.JTextField jtf_Carnet;
