@@ -5,6 +5,7 @@
  */
 package Interface;
 
+import File.FileSerializable;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import domain.Books;
@@ -13,16 +14,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-/**
- *
- * @author jeanp
- */
-public class BookInsert extends javax.swing.JFrame {
 
-    /**
-     * Creates new form BookInsert
-     */
-    
+public class BookInsert extends javax.swing.JFrame {
+    FileSerializable file = new FileSerializable("bookInfo.dat");
+    Books books;
     FileOutputStream fos;
     ObjectOutputStream output;
     Books b;
@@ -245,20 +240,20 @@ public class BookInsert extends javax.swing.JFrame {
     }//GEN-LAST:event_jtf_isbnInsertMouseClicked
 
     private void jb_insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_insertActionPerformed
-        try{
-            fos = new FileOutputStream("bookInfo", true);
-            output = new ObjectOutputStream(fos);
-            b = new Books(jtf_nameInsert.getText(), jcb_subject.getSelectedItem()+"",
+        
+            books = new Books(jtf_nameInsert.getText(), jcb_subject.getSelectedItem()+"",
                           jcb_bookType.getSelectedItem()+"",jcb_bookType.getSelectedItem()+"", 
                           Integer.parseInt(jtf_isbnInsert.getText()),
                           Integer.parseInt(jtf_yearInsert.getText()));
-            output.writeObject(b);
-            JOptionPane.showMessageDialog(null, "Se ha insertado el libro con exito");
+            JOptionPane.showMessageDialog(null, "Se ha insertado el libro "+jtf_nameInsert.getText()+" con éxito");
             cleanUp();
-        } catch (FileNotFoundException ex) {
-            System.out.println("1"+ex.getMessage());
+//            
+        try {
+            file.serialize(books);
         } catch (IOException ex) {
-            System.out.println("2"+ex.getMessage());
+            Logger.getLogger(BookInsert.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookInsert.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jb_insertActionPerformed
 
