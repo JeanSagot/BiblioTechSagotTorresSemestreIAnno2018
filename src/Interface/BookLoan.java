@@ -43,6 +43,8 @@ public class BookLoan extends javax.swing.JFrame {
         jl_bookname = new javax.swing.JLabel();
         jb_accept = new javax.swing.JButton();
         jseparator = new javax.swing.JSeparator();
+        jtf_returnDate = new com.toedter.calendar.JDateChooser();
+        jtf_outDate = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -166,6 +168,8 @@ public class BookLoan extends javax.swing.JFrame {
 
         jseparator.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jseparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, 10, 470));
+        jPanel1.add(jtf_returnDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 330, 180, 30));
+        jPanel1.add(jtf_outDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 180, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 580));
 
@@ -269,5 +273,7 @@ public class BookLoan extends javax.swing.JFrame {
     private javax.swing.JSeparator jseparator;
     private javax.swing.JTable jt_books;
     private javax.swing.JTextField jtf_findBook;
+    private com.toedter.calendar.JDateChooser jtf_outDate;
+    private com.toedter.calendar.JDateChooser jtf_returnDate;
     // End of variables declaration//GEN-END:variables
 }
