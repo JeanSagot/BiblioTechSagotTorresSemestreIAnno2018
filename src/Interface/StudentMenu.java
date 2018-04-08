@@ -15,16 +15,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import domain.students;
 import java.util.logging.Formatter;
-/**
- *
- * @author jeanp
- */
+
 
 public class StudentMenu extends javax.swing.JFrame {
-
-    /**
-     * Creates new form homeLogin
-     */
     sSlide slide;
     studentsRegistry studRegistry; 
     File fileStudent;
@@ -146,7 +139,7 @@ public class StudentMenu extends javax.swing.JFrame {
         jb_addStudent1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Add_User_Male_32px.png"))); // NOI18N
         jb_addStudent1.setText("Register");
         jb_addStudent1.setBorderPainted(false);
-        jb_addStudent1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_addStudent1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jb_addStudent1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_addStudent1ActionPerformed(evt);
@@ -163,7 +156,7 @@ public class StudentMenu extends javax.swing.JFrame {
         jb_goBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Back_40px_1_Off.png"))); // NOI18N
         jb_goBack.setBorderPainted(false);
         jb_goBack.setContentAreaFilled(false);
-        jb_goBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_goBack.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jb_goBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_goBackActionPerformed(evt);
@@ -225,7 +218,7 @@ public class StudentMenu extends javax.swing.JFrame {
 
         jl_menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Menu_32px.png"))); // NOI18N
-        jl_menu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jl_menu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jl_menu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jl_menuMouseClicked(evt);
@@ -237,7 +230,7 @@ public class StudentMenu extends javax.swing.JFrame {
         jb_logIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Enter_32px.png"))); // NOI18N
         jb_logIn.setText("Enter");
         jb_logIn.setBorderPainted(false);
-        jb_logIn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_logIn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jb_logIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_logInActionPerformed(evt);
@@ -267,7 +260,7 @@ public class StudentMenu extends javax.swing.JFrame {
         jb_goRegister.setText("Registrate!");
         jb_goRegister.setBorderPainted(false);
         jb_goRegister.setContentAreaFilled(false);
-        jb_goRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_goRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jb_goRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_goRegisterActionPerformed(evt);
@@ -337,7 +330,7 @@ public class StudentMenu extends javax.swing.JFrame {
         jb_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Back_40px_1_Off.png"))); // NOI18N
         jb_back.setBorderPainted(false);
         jb_back.setContentAreaFilled(false);
-        jb_back.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_back.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jb_back.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Back_40px_2_on.png"))); // NOI18N
         jb_back.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Back_40px_2_on.png"))); // NOI18N
         jb_back.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Back_40px_2_on.png"))); // NOI18N
@@ -411,10 +404,10 @@ public class StudentMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jtf_CarnetMouseClicked
 
     private void jb_logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_logInActionPerformed
-   //  BookLoan booloan= new BookLoan();
-     MaterialLoan material=new MaterialLoan();
-     material.setVisible(true);
-        this.setVisible(false); 
+  //   BookLoan booloan= new BookLoan();
+    // MaterialLoan material=new MaterialLoan();
+     JP_Register.setVisible(true);
+        //this.setVisible(false); 
      
         String carnet = makeCarnet(jcb_career1.getSelectedItem()+"",
                                       jcb_year.getSelectedItem()+""); 
@@ -491,10 +484,6 @@ public class StudentMenu extends javax.swing.JFrame {
         String carnet;
         int carnetConsec = studRegistry.fileSize();
         String formatCarnet = carnetFormat("00", carnetConsec);
-        
-        
-        
-        
         firstCareer = career.charAt(0);
         lastYear = year.charAt(year.length()-1);
         

@@ -34,7 +34,7 @@ public class BookInsert extends javax.swing.JFrame {
         //formato de seleccion de año
         jcb_condition.removeAllItems();
         jcb_condition.addItem("Buena");
-        jcb_condition.addItem("Normal");
+        jcb_condition.addItem("Regular");
         jcb_condition.addItem("Mala");
         
         //formato de tipo de libro
@@ -241,7 +241,7 @@ public class BookInsert extends javax.swing.JFrame {
     private void jb_insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_insertActionPerformed
         file = new FileSerializable("bookInfo.dat");
             books = new Books(jtf_nameInsert.getText(), jcb_subject.getSelectedItem()+"",
-                          jcb_bookType.getSelectedItem()+"",jcb_bookType.getSelectedItem()+"", 
+                          jcb_condition.getSelectedItem()+"",jcb_bookType.getSelectedItem()+"", 
                           Integer.parseInt(jtf_isbnInsert.getText()),
                           Integer.parseInt(jtf_yearInsert.getText()));
             JOptionPane.showMessageDialog(null, "Se ha insertado el libro "+jtf_nameInsert.getText()+" con éxito");

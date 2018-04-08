@@ -27,7 +27,6 @@ public class FileSerializable {
     }
     
     public void serialize(Object object) throws IOException, ClassNotFoundException{
-        
         if(myFile.exists()){
         ObjectInputStream objectInput = new ObjectInputStream(new FileInputStream(myFile));
         ArrayList<Object> arrayListObject = (ArrayList<Object>) objectInput.readObject();

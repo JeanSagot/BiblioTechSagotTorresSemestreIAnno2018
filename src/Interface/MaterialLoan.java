@@ -73,7 +73,7 @@ public class MaterialLoan extends javax.swing.JFrame {
                 jtf_findMaterialActionPerformed(evt);
             }
         });
-        jPanel1.add(jtf_findMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 370, 40));
+        jPanel1.add(jtf_findMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 370, 40));
 
         jt_Materials.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -94,7 +94,12 @@ public class MaterialLoan extends javax.swing.JFrame {
         jb_find.setBorderPainted(false);
         jb_find.setContentAreaFilled(false);
         jb_find.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel1.add(jb_find, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 50, 40));
+        jb_find.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_findActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jb_find, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 50, 40));
 
         jp_header.setBackground(new java.awt.Color(78, 168, 214));
         jp_header.setForeground(new java.awt.Color(78, 168, 214));
@@ -137,13 +142,13 @@ public class MaterialLoan extends javax.swing.JFrame {
         jPanel1.add(jl_materialExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 430, 170, 30));
 
         jl_propsShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jl_propsShow.setText("jLabel2");
+        jl_propsShow.setText("accesorios");
         jPanel1.add(jl_propsShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 290, 230, 20));
 
         jl_accesories.setBackground(new java.awt.Color(78, 168, 214));
         jl_accesories.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jl_accesories.setForeground(new java.awt.Color(78, 168, 214));
-        jl_accesories.setText("Accesories:");
+        jl_accesories.setText("Accesorios:");
         jPanel1.add(jl_accesories, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, 90, 30));
 
         jl_propOut.setBackground(new java.awt.Color(78, 168, 214));
@@ -164,7 +169,7 @@ public class MaterialLoan extends javax.swing.JFrame {
         jPanel1.add(js_Line1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 120, 230, 10));
 
         jl_nameShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jl_nameShow.setText("jLabel1");
+        jl_nameShow.setText("nombre");
         jPanel1.add(jl_nameShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 90, 230, 20));
 
         jb_accept.setText("Aceptar");
@@ -176,13 +181,13 @@ public class MaterialLoan extends javax.swing.JFrame {
         jl_materialType.setBackground(new java.awt.Color(78, 168, 214));
         jl_materialType.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jl_materialType.setForeground(new java.awt.Color(78, 168, 214));
-        jl_materialType.setText("Type:");
+        jl_materialType.setText("Tipo:");
         jPanel1.add(jl_materialType, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 150, 90, 30));
 
         jl_materialCondition.setBackground(new java.awt.Color(78, 168, 214));
         jl_materialCondition.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jl_materialCondition.setForeground(new java.awt.Color(78, 168, 214));
-        jl_materialCondition.setText("Condition:");
+        jl_materialCondition.setText("Condicion:");
         jPanel1.add(jl_materialCondition, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 220, 90, 30));
 
         js_Line2.setBackground(new java.awt.Color(60, 63, 65));
@@ -196,11 +201,11 @@ public class MaterialLoan extends javax.swing.JFrame {
         jPanel1.add(js_Line3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 240, 230, 10));
 
         jl_typeShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jl_typeShow.setText("jLabel2");
+        jl_typeShow.setText("tipo");
         jPanel1.add(jl_typeShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 150, 230, 20));
 
         jl_conditionShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jl_conditionShow.setText("jLabel2");
+        jl_conditionShow.setText("condicion");
         jPanel1.add(jl_conditionShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 210, 230, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -229,10 +234,12 @@ public class MaterialLoan extends javax.swing.JFrame {
 
     private void jtf_findMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtf_findMaterialMouseClicked
         jtf_findMaterial.setText("");
+        showMatrix();
     }//GEN-LAST:event_jtf_findMaterialMouseClicked
 
     private void jtf_findMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_findMaterialActionPerformed
         jtf_findMaterial.setText("");
+        selectBook();
     }//GEN-LAST:event_jtf_findMaterialActionPerformed
 
     private void jb_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_backActionPerformed
@@ -241,6 +248,10 @@ public class MaterialLoan extends javax.swing.JFrame {
         home.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jb_backActionPerformed
+
+    private void jb_findActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_findActionPerformed
+    selectBook();
+    }//GEN-LAST:event_jb_findActionPerformed
 
       public void showMatrix(){
          FileSerializable file = new FileSerializable("MaterialInfo.dat");
@@ -269,10 +280,32 @@ public class MaterialLoan extends javax.swing.JFrame {
             Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+      public void selectBook(){ 
+       String matrixTemp [][] = new String[matrix1.length][5];
+       for (int i=0; i<matrix1.length; i++){
+       if (autocomplete.getItemSelected().equals(matrix1[i][0])){
+            jl_nameShow.setText(matrix1[i][0]);
+            jl_typeShow.setText(matrix1[i][1]);
+            jl_conditionShow.setText(matrix1[i][2]);
+            jl_propsShow.setText(matrix1[i][4]);
+            
+            matrixTemp[0][0]=matrix1[i][0];
+            matrixTemp[0][1]=matrix1[i][1];
+            matrixTemp[0][2]=matrix1[i][2];
+            matrixTemp[0][3]=matrix1[i][3];
+            matrixTemp[0][4]=matrix1[i][4];
+               
+       }}
+        jt_Materials.setModel(new javax.swing.table.DefaultTableModel(
+            matrixTemp,
+            new String [] {
+                "Nombre", "Tipo", "Condicion", "Marca", "Accesorios"
+            }));
+   }
      public void Autocomplete(){
         autocomplete = new TextAutoCompleter(jtf_findMaterial);
         for (int i=0; i<matrix1.length; i++){
-          autocomplete.addItem(matrix1[i][0]+" (Audovisuales)");
+          autocomplete.addItem(matrix1[i][0]);
 
         }
     }
