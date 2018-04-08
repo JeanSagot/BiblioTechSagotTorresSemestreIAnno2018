@@ -5,27 +5,22 @@
  */
 package Interface;
 
+import File.FileSerializable;
 import domain.Books;
 import domain.materials;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author jeanp
- */
-public class InsertMaterials extends javax.swing.JFrame {
-
-    /**
-     * Creates new form InsertMaterials
-     */
-    
+public class InsertMaterials extends javax.swing.JFrame {   
+    FileSerializable file;
     FileOutputStream fos;
     ObjectOutputStream output;
-    materials m;
+    materials materials;
     
     public InsertMaterials() {
         initComponents();
@@ -276,19 +271,18 @@ public class InsertMaterials extends javax.swing.JFrame {
 
     //se inserta el material audivisual en un archivo de maner serializable
     private void jb_insertMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_insertMaterialActionPerformed
-        try{
-            fos = new FileOutputStream("MaterialInfo", true);
-            output = new ObjectOutputStream(fos);
-            m = new materials(jtf_name.getText(), jcb_type.getSelectedItem()+"", 
-                    jcb_condition.getSelectedItem()+"", jtf_brand.getText(), 
-                    jcb_hasProps.getSelectedItem()+"");
-            output.writeObject(m);
-            JOptionPane.showMessageDialog(null, "Se ha insertado el material audiovisual con exito");
+        file = new FileSerializable("MaterialInfo.dat");
+            materials = new materials(jtf_name.getText(),jcb_type.getSelectedItem()+"",jcb_condition.getSelectedItem()+"",
+                                      jtf_brand.getText(),jcb_hasProps.getSelectedItem()+"");
+            JOptionPane.showMessageDialog(null, "Se ha insertado el Audiovisual "+jtf_name.getText()+" con éxito");
             clean();
-        } catch (FileNotFoundException ex) {
-            System.out.println("3"+ex.getMessage());
+//            
+        try {
+            file.serialize(materials);
         } catch (IOException ex) {
-            System.out.println("4"+ex.getMessage());
+            Logger.getLogger(BookInsert.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookInsert.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jb_insertMaterialActionPerformed
 

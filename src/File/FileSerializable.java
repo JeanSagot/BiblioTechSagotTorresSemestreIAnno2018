@@ -17,7 +17,7 @@ public class FileSerializable {
     FileInputStream fis;
     ObjectInputStream input;
     ArrayList<Object>arrayListObject = new ArrayList<Object>();
-    File myFile;
+    File myFile ;
     
     public FileSerializable(String path) {
         super();

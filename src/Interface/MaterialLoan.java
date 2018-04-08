@@ -1,11 +1,26 @@
 
 package Interface;
 
+import File.FileSerializable;
+import com.mxrck.autocompleter.TextAutoCompleter;
+import domain.Books;
+import domain.materials;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import jdk.nashorn.internal.runtime.regexp.joni.constants.MetaChar;
+
 
 public class MaterialLoan extends javax.swing.JFrame {
 
+    InsertMaterials materialInsert = new InsertMaterials();
+    private  TextAutoCompleter autocomplete;
+    String matrix1 [][];
     public MaterialLoan() {
         initComponents();
+        showMatrix();
+        Autocomplete();
     }
 
  
@@ -62,13 +77,13 @@ public class MaterialLoan extends javax.swing.JFrame {
 
         jt_Materials.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre", "Tipo", "Condicion", "Marca", "Accesorios"
             }
         ));
         jsp_materials.setViewportView(jt_Materials);
@@ -227,6 +242,40 @@ public class MaterialLoan extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jb_backActionPerformed
 
+      public void showMatrix(){
+         FileSerializable file = new FileSerializable("MaterialInfo.dat");
+        try {
+            ArrayList<Object> arrayListObjects = file.readSerializeBooks();
+            String matrix [][] = new String[arrayListObjects.size()][5];
+            matrix1 = new String[arrayListObjects.size()][0];
+            ArrayList<materials> arrayListMaterial = new ArrayList<materials>();
+            for(int i=0; i<arrayListObjects.size(); i++){
+                arrayListMaterial.add((materials)arrayListObjects.get(i));
+                matrix [i][0] = arrayListMaterial.get(i).getName();
+                matrix [i][1] = arrayListMaterial.get(i).getType();
+                matrix [i][2] = arrayListMaterial.get(i).getCondition();
+                matrix [i][3] = arrayListMaterial.get(i).getBrand();
+                matrix [i][4] = arrayListMaterial.get(i).getAccesories();
+            }
+            this.matrix1=matrix;
+            jt_Materials.setModel(new javax.swing.table.DefaultTableModel(
+            matrix,
+            new String [] {
+                "Nombre", "Tipo", "Condicion", "Marca", "Accesorios"
+            }));  
+        } catch (IOException ex) {
+            Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     public void Autocomplete(){
+        autocomplete = new TextAutoCompleter(jtf_findMaterial);
+        for (int i=0; i<matrix1.length; i++){
+          autocomplete.addItem(matrix1[i][0]+" (Audovisuales)");
+
+        }
+    }
     /**
      * @param args the command line arguments
      */

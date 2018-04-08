@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class BookLoan extends javax.swing.JFrame {
-     BookInsert bookInsert = new BookInsert();
-    FileSerializable file = bookInsert.file;
+    BookInsert bookInsert = new BookInsert();
     private  TextAutoCompleter autocomplete;
     String matrix1 [][];
     
@@ -189,7 +189,7 @@ public class BookLoan extends javax.swing.JFrame {
     }//GEN-LAST:event_jtf_findBookMouseClicked
 
    public void showMatrix(){
-        
+        FileSerializable file = new FileSerializable("bookInfo.dat");
         try {
             ArrayList<Object> arrayListObjects = file.readSerializeBooks();
             String matrix [][] = new String[arrayListObjects.size()][4];

@@ -16,11 +16,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class BookInsert extends javax.swing.JFrame {
-    FileSerializable file = new FileSerializable("bookInfo.dat");
+    FileSerializable file;
     Books books;
     FileOutputStream fos;
     ObjectOutputStream output;
-    Books b;
     public BookInsert() {
         initComponents();
         this.setLocationRelativeTo(null); //centra el frame
@@ -240,7 +239,7 @@ public class BookInsert extends javax.swing.JFrame {
     }//GEN-LAST:event_jtf_isbnInsertMouseClicked
 
     private void jb_insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_insertActionPerformed
-        
+        file = new FileSerializable("bookInfo.dat");
             books = new Books(jtf_nameInsert.getText(), jcb_subject.getSelectedItem()+"",
                           jcb_bookType.getSelectedItem()+"",jcb_bookType.getSelectedItem()+"", 
                           Integer.parseInt(jtf_isbnInsert.getText()),
