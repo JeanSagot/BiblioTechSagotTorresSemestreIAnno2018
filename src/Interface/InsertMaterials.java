@@ -5,38 +5,35 @@
  */
 package Interface;
 
+import File.FileSerializable;
 import domain.Books;
 import domain.materials;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author jeanp
- */
-public class InsertMaterials extends javax.swing.JFrame {
-
-    /**
-     * Creates new form InsertMaterials
-     */
-    
+public class InsertMaterials extends javax.swing.JFrame {   
+    FileSerializable file;
     FileOutputStream fos;
     ObjectOutputStream output;
-    materials m;
+    materials materials;
     
     public InsertMaterials() {
         initComponents();
         this.setLocationRelativeTo(null);
         
         jcb_condition.removeAllItems();
+        jcb_condition.addItem("Seleccionar");
         jcb_condition.addItem("Buena");
-        jcb_condition.addItem("Normal");
+        jcb_condition.addItem("Regular");
         jcb_condition.addItem("Mala");
         
         jcb_type.removeAllItems();
+        jcb_type.addItem("Seleccionar");
         jcb_type.addItem("Laptop");
         jcb_type.addItem("Proyector");
         jcb_type.addItem("Parlantes");
@@ -44,11 +41,11 @@ public class InsertMaterials extends javax.swing.JFrame {
         jcb_type.addItem("DVD");
         
         jcb_hasProps.removeAllItems();
+        jcb_hasProps.addItem("Seleccionar");
         jcb_hasProps.addItem("Si tiene");
         jcb_hasProps.addItem("No tiene");
         
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -276,20 +273,22 @@ public class InsertMaterials extends javax.swing.JFrame {
 
     //se inserta el material audivisual en un archivo de maner serializable
     private void jb_insertMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_insertMaterialActionPerformed
-        try{
-            fos = new FileOutputStream("MaterialInfo", true);
-            output = new ObjectOutputStream(fos);
-            m = new materials(jtf_name.getText(), jcb_type.getSelectedItem()+"", 
-                    jcb_condition.getSelectedItem()+"", jtf_brand.getText(), 
-                    jcb_hasProps.getSelectedItem()+"");
-            output.writeObject(m);
-            JOptionPane.showMessageDialog(null, "Se ha insertado el material audiovisual con exito");
-            clean();
-        } catch (FileNotFoundException ex) {
-            System.out.println("3"+ex.getMessage());
+       if(EmptySpace() == true){
+           JOptionPane.showMessageDialog(null, "Ingrese toda la informacion necesaria.");
+           }else{
+            file = new FileSerializable("MaterialInfo.dat");
+            materials = new materials(jtf_name.getText(),jcb_type.getSelectedItem()+"",jcb_condition.getSelectedItem()+"",
+                                      jtf_brand.getText(),jcb_hasProps.getSelectedItem()+"");
+            JOptionPane.showMessageDialog(null, "Se ha insertado el Audiovisual "+jtf_name.getText()+" con éxito");
+            clean();            
+        try {
+            file.serialize(materials);
         } catch (IOException ex) {
-            System.out.println("4"+ex.getMessage());
+            Logger.getLogger(BookInsert.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookInsert.class.getName()).log(Level.SEVERE, null, ex);
         }
+       }
     }//GEN-LAST:event_jb_insertMaterialActionPerformed
 
     /**
@@ -346,9 +345,23 @@ public class InsertMaterials extends javax.swing.JFrame {
     private javax.swing.JTextField jtf_brand;
     private javax.swing.JTextField jtf_name;
     // End of variables declaration//GEN-END:variables
-
+    
+    //Metodo limpia los espacios de texto una vez se hayan ingresado 
     public void clean(){
         jtf_brand.setText("Inserte la marca del articulo");
         jtf_name.setText("Inserte el nombre del articulo");
+        jcb_condition.setSelectedItem("Seleccionar");
+        jcb_type.setSelectedItem("Seleccionar");
+        jcb_hasProps.setSelectedItem("Seleccionar");
     }
+     //Metodo que verifica que todos los espacios de informacion esten llenos
+     private boolean EmptySpace(){
+         if((jtf_name.getText().isEmpty() || jtf_name.getText().equals("Inserte el nombre")) ||
+                 (jtf_brand.getText().isEmpty() || jtf_brand.getText().equals("Inserte la marca del articulo")) ||
+                 (jcb_condition.getSelectedItem().equals("Seleccionar")) || (jcb_type.getSelectedItem().equals("Seleccionar")) || 
+                 (jcb_hasProps.getSelectedItem().equals("Seleccionar")))
+             return true;
+         else
+             return false;
+     }//fin del metodo
 }

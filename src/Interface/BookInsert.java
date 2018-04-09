@@ -16,30 +16,30 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class BookInsert extends javax.swing.JFrame {
-    FileSerializable file = new FileSerializable("bookInfo.dat");
+    FileSerializable file;
     Books books;
     FileOutputStream fos;
     ObjectOutputStream output;
-    Books b;
     public BookInsert() {
         initComponents();
         this.setLocationRelativeTo(null); //centra el frame
-
-        
         //formato de carreras jcombo
         jcb_subject.removeAllItems();
+        jcb_subject.addItem("Seleccionar");
         jcb_subject.addItem("Agronomia");
         jcb_subject.addItem("Educacion");
         jcb_subject.addItem("Informatica");
         
         //formato de seleccion de año
         jcb_condition.removeAllItems();
+        jcb_condition.addItem("Seleccionar");
         jcb_condition.addItem("Buena");
-        jcb_condition.addItem("Normal");
+        jcb_condition.addItem("Regular");
         jcb_condition.addItem("Mala");
         
         //formato de tipo de libro
         jcb_bookType.removeAllItems();
+        jcb_bookType.addItem("Seleccionar");
         jcb_bookType.addItem("E-book");
         jcb_bookType.addItem("Fisico");
         
@@ -88,7 +88,7 @@ public class BookInsert extends javax.swing.JFrame {
         jb_back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Back_40px_1_Off.png"))); // NOI18N
         jb_back.setBorderPainted(false);
         jb_back.setContentAreaFilled(false);
-        jb_back.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_back.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jb_back.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Back_40px_2_on.png"))); // NOI18N
         jb_back.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Back_40px_2_on.png"))); // NOI18N
         jb_back.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Back_40px_2_on.png"))); // NOI18N
@@ -170,6 +170,11 @@ public class BookInsert extends javax.swing.JFrame {
                 jtf_isbnInsertMouseClicked(evt);
             }
         });
+        jtf_isbnInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtf_isbnInsertActionPerformed(evt);
+            }
+        });
         jp_body.add(jtf_isbnInsert, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 230, -1));
 
         jcb_bookType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -240,14 +245,16 @@ public class BookInsert extends javax.swing.JFrame {
     }//GEN-LAST:event_jtf_isbnInsertMouseClicked
 
     private void jb_insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_insertActionPerformed
-        
+         if(EmptySpace() == true){
+           JOptionPane.showMessageDialog(null, "Ingrese toda la informacion necesaria.");
+           }else{
+        file = new FileSerializable("bookInfo.dat");
             books = new Books(jtf_nameInsert.getText(), jcb_subject.getSelectedItem()+"",
-                          jcb_bookType.getSelectedItem()+"",jcb_bookType.getSelectedItem()+"", 
+                          jcb_condition.getSelectedItem()+"",jcb_bookType.getSelectedItem()+"", 
                           Integer.parseInt(jtf_isbnInsert.getText()),
                           Integer.parseInt(jtf_yearInsert.getText()));
             JOptionPane.showMessageDialog(null, "Se ha insertado el libro "+jtf_nameInsert.getText()+" con éxito");
-            cleanUp();
-//            
+            cleanUp();         
         try {
             file.serialize(books);
         } catch (IOException ex) {
@@ -255,6 +262,7 @@ public class BookInsert extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BookInsert.class.getName()).log(Level.SEVERE, null, ex);
         }
+         }
     }//GEN-LAST:event_jb_insertActionPerformed
 
     private void jtf_yearInsertMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtf_yearInsertMouseClicked
@@ -268,6 +276,10 @@ public class BookInsert extends javax.swing.JFrame {
     private void jb_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cancelActionPerformed
         cleanUp();
     }//GEN-LAST:event_jb_cancelActionPerformed
+
+    private void jtf_isbnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_isbnInsertActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtf_isbnInsertActionPerformed
 
     /**
      * @param args the command line arguments
@@ -331,5 +343,19 @@ public class BookInsert extends javax.swing.JFrame {
         jtf_nameInsert.setText("Inserte el nombre del libro");
         jtf_isbnInsert.setText("Inserte el ISBN");
         jtf_yearInsert.setText("Inserte el año de publicacion del libro");
+        jcb_bookType.setSelectedItem("Seleccionar");
+        jcb_condition.setSelectedItem("Seleccionar");
+        jcb_subject.setSelectedItem("Seleccionar");
     }
+    //Metodo que verifica que todos los espacios de informacion esten llenos
+     private boolean EmptySpace(){
+         if((jtf_nameInsert.getText().isEmpty() || jtf_nameInsert.getText().equals("Inserte nombre del libro"))||
+                 (jtf_isbnInsert.getText().isEmpty() || jtf_isbnInsert.getText().equals("Inserte el ISBN"))||
+                 (jtf_yearInsert.getText().isEmpty()|| jtf_yearInsert.getText().equals("Inserte el año de publicacion del libro")) ||
+                 (jcb_condition.getSelectedItem().equals("Seleccionar")) || (jcb_bookType.getSelectedItem().equals("Seleccionar")) || 
+                 (jcb_subject.getSelectedItem().equals("Seleccionar")))
+             return true;
+         else
+             return false;
+     }//fin del metodo
 }

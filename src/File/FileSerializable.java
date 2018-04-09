@@ -16,8 +16,9 @@ public class FileSerializable {
     ObjectOutputStream output;
     FileInputStream fis;
     ObjectInputStream input;
-    ArrayList<Books>arrayListBooks = new ArrayList<Books>();
-    File myFile;
+    ArrayList<Object>arrayListObject = new ArrayList<Object>();
+    File myFile ;
+    
     public FileSerializable(String path) {
         super();
         //ruta del archivo
@@ -25,28 +26,27 @@ public class FileSerializable {
         myFile = new File(path);
     }
     
-    public void serialize(Books book) throws IOException, ClassNotFoundException{
-        
+    public void serialize(Object object) throws IOException, ClassNotFoundException{
         if(myFile.exists()){
-      //  ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(myFile));
         ObjectInputStream objectInput = new ObjectInputStream(new FileInputStream(myFile));
-        ArrayList<Books> arrayListBooks = (ArrayList<Books>) objectInput.readObject();
-        this.arrayListBooks = arrayListBooks;
+        ArrayList<Object> arrayListObject = (ArrayList<Object>) objectInput.readObject();
+        this.arrayListObject = arrayListObject;
         objectInput.close();  
         }
         ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(myFile));
-        arrayListBooks.add(book);
-        output.writeUnshared(arrayListBooks);
+        arrayListObject.add(object);
+        output.writeUnshared(arrayListObject);
         output.close();   
     }
     
-      public ArrayList<Books> readSerialize() throws IOException, ClassNotFoundException{
+    public ArrayList<Object> readSerializeBooks() throws IOException, ClassNotFoundException{
          
         input = new   ObjectInputStream(new FileInputStream(myFile));
-        ArrayList<Books> arraysListBooks = (ArrayList<Books>)input.readObject();
+        ArrayList<Object> arraysListBooks = (ArrayList<Object>)input.readObject();
         input.close();
         return arraysListBooks;
            }
+       
        
       
 }
