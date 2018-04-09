@@ -20,6 +20,7 @@ public class returnFrame extends javax.swing.JFrame {
      */
     public returnFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -32,30 +33,33 @@ public class returnFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jp_body = new javax.swing.JPanel();
-        jl_materialName = new javax.swing.JLabel();
-        jl_materialType = new javax.swing.JLabel();
+        jl_name = new javax.swing.JLabel();
+        jl_penalty = new javax.swing.JLabel();
         jtf_name = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        jl_penaltyShow = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jl_carnet = new javax.swing.JLabel();
+        jtf_carnet = new javax.swing.JTextField();
         jp_header = new javax.swing.JPanel();
         jb_back = new javax.swing.JButton();
         jl_logo = new javax.swing.JLabel();
         jl_slogan = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jp_body.setBackground(new java.awt.Color(255, 255, 255));
 
-        jl_materialName.setBackground(new java.awt.Color(78, 168, 214));
-        jl_materialName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jl_materialName.setForeground(new java.awt.Color(78, 168, 214));
-        jl_materialName.setText("Nombre:");
+        jl_name.setBackground(new java.awt.Color(78, 168, 214));
+        jl_name.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jl_name.setForeground(new java.awt.Color(78, 168, 214));
+        jl_name.setText("Nombre:");
 
-        jl_materialType.setBackground(new java.awt.Color(78, 168, 214));
-        jl_materialType.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jl_materialType.setForeground(new java.awt.Color(78, 168, 214));
-        jl_materialType.setText("Multa:");
+        jl_penalty.setBackground(new java.awt.Color(78, 168, 214));
+        jl_penalty.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jl_penalty.setForeground(new java.awt.Color(78, 168, 214));
+        jl_penalty.setText("Multa:");
 
         jtf_name.setText("Inserte el nombre");
         jtf_name.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -69,44 +73,63 @@ public class returnFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("multa");
+        jl_penaltyShow.setText("multa");
 
         jButton1.setText("Devolver");
+
+        jl_carnet.setBackground(new java.awt.Color(78, 168, 214));
+        jl_carnet.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jl_carnet.setForeground(new java.awt.Color(78, 168, 214));
+        jl_carnet.setText("Carnet:");
+
+        jtf_carnet.setText("Inserte su carnet");
+        jtf_carnet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtf_carnetMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jp_bodyLayout = new javax.swing.GroupLayout(jp_body);
         jp_body.setLayout(jp_bodyLayout);
         jp_bodyLayout.setHorizontalGroup(
             jp_bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_bodyLayout.createSequentialGroup()
-                .addGap(245, 245, 245)
-                .addGroup(jp_bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jl_materialName, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jp_bodyLayout.createSequentialGroup()
-                        .addComponent(jl_materialType, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addGroup(jp_bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtf_name, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(446, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_bodyLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(356, 356, 356))
+            .addGroup(jp_bodyLayout.createSequentialGroup()
+                .addGap(245, 245, 245)
+                .addGroup(jp_bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jl_name, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jp_bodyLayout.createSequentialGroup()
+                        .addGroup(jp_bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jl_penalty, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jl_carnet, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)
+                        .addGroup(jp_bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jl_penaltyShow, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                            .addComponent(jtf_name, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                            .addComponent(jtf_carnet))))
+                .addContainerGap(446, Short.MAX_VALUE))
         );
         jp_bodyLayout.setVerticalGroup(
             jp_bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_bodyLayout.createSequentialGroup()
-                .addGap(156, 156, 156)
+                .addGap(65, 65, 65)
                 .addGroup(jp_bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_materialName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jl_carnet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtf_carnet, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61)
+                .addGroup(jp_bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jl_name, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtf_name, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(80, 80, 80)
                 .addGroup(jp_bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jl_materialType, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jl_penalty, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jl_penaltyShow, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(86, 86, 86)
                 .addComponent(jButton1)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         getContentPane().add(jp_body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 1050, 520));
@@ -164,6 +187,10 @@ public class returnFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jb_backActionPerformed
 
+    private void jtf_carnetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtf_carnetMouseClicked
+        jtf_carnet.setText("");
+    }//GEN-LAST:event_jtf_carnetMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -201,14 +228,16 @@ public class returnFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jb_back;
+    private javax.swing.JLabel jl_carnet;
     private javax.swing.JLabel jl_logo;
-    private javax.swing.JLabel jl_materialName;
-    private javax.swing.JLabel jl_materialType;
+    private javax.swing.JLabel jl_name;
+    private javax.swing.JLabel jl_penalty;
+    private javax.swing.JLabel jl_penaltyShow;
     private javax.swing.JLabel jl_slogan;
     private javax.swing.JPanel jp_body;
     private javax.swing.JPanel jp_header;
+    private javax.swing.JTextField jtf_carnet;
     private javax.swing.JTextField jtf_name;
     // End of variables declaration//GEN-END:variables
 }

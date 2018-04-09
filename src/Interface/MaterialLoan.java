@@ -17,6 +17,7 @@ public class MaterialLoan extends javax.swing.JFrame {
     //Constructor
     public MaterialLoan() {
         initComponents();
+        this.setLocationRelativeTo(null);
         showMatrix();
         Autocomplete();
     }
@@ -51,6 +52,7 @@ public class MaterialLoan extends javax.swing.JFrame {
         jl_conditionShow = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

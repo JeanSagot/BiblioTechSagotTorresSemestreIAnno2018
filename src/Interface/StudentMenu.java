@@ -81,6 +81,7 @@ public class StudentMenu extends javax.swing.JFrame {
         jl_bookIcon = new javax.swing.JLabel();
         jl_materialInfo = new javax.swing.JLabel();
         sep_home = new javax.swing.JSeparator();
+        jb_goReturn = new javax.swing.JButton();
         jp_header = new javax.swing.JPanel();
         jb_back = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -233,6 +234,11 @@ public class StudentMenu extends javax.swing.JFrame {
 
         jl_menuAbout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_menuAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Info_32px_1.png"))); // NOI18N
+        jl_menuAbout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jl_menuAboutMouseClicked(evt);
+            }
+        });
         JP_login.add(jl_menuAbout, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 75, 40, 40));
 
         jl_Carnet2.setBackground(new java.awt.Color(78, 168, 214));
@@ -304,6 +310,11 @@ public class StudentMenu extends javax.swing.JFrame {
 
         sep_home.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jp_body.add(sep_home, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 10, 310));
+
+        jb_goReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Feed_In_64px.png"))); // NOI18N
+        jb_goReturn.setText("Devolver libros o materiales");
+        jb_goReturn.setBorderPainted(false);
+        jp_body.add(jb_goReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 250, 60));
 
         getContentPane().add(jp_body, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 780, 520));
 
@@ -467,6 +478,12 @@ public class StudentMenu extends javax.swing.JFrame {
         jb_addStudent1.setEnabled(true);
     }//GEN-LAST:event_jb_ViewCarnetMouseClicked
 
+    private void jl_menuAboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_menuAboutMouseClicked
+        JOptionPane.showMessageDialog(null, "Si quieres ingresar a nuestro sistema: \n"
+                + "1. Asegurate de estar bien registrado, el cual si aun no lo estas puedes hacerlo "
+                + " el boton de registrarse abajo.\n 2. Luego logearte con tu carnet.");
+    }//GEN-LAST:event_jl_menuAboutMouseClicked
+
     
     //Se hace el carnet segun lo que escogio el estudiante
     public String makeCarnet(String career, String year){
@@ -540,6 +557,7 @@ public class StudentMenu extends javax.swing.JFrame {
     private javax.swing.JButton jb_back;
     private javax.swing.JButton jb_goBack;
     private javax.swing.JButton jb_goRegister;
+    private javax.swing.JButton jb_goReturn;
     private javax.swing.JButton jb_logIn;
     private javax.swing.JComboBox<String> jcb_career1;
     private javax.swing.JComboBox<String> jcb_year;

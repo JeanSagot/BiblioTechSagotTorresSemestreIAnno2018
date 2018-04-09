@@ -16,6 +16,7 @@ public class BookLoan extends javax.swing.JFrame {
     //Constructor 
     public BookLoan() {
          initComponents();
+         this.setLocationRelativeTo(null);
          showMatrix();
          Autocomplete();
     }

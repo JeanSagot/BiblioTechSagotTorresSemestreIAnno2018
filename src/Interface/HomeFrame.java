@@ -5,6 +5,7 @@ import AppPackage.AnimationClass;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class HomeFrame extends javax.swing.JFrame {
     //Constructor
@@ -45,7 +46,7 @@ public class HomeFrame extends javax.swing.JFrame {
         jb_Minimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Minus_40px_off.png"))); // NOI18N
         jb_Minimize.setBorderPainted(false);
         jb_Minimize.setContentAreaFilled(false);
-        jb_Minimize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_Minimize.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jb_Minimize.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Minus_40px_1_On.png"))); // NOI18N
         jb_Minimize.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Minus_40px_1_On.png"))); // NOI18N
         jb_Minimize.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Minus_40px_1_On.png"))); // NOI18N
@@ -62,7 +63,7 @@ public class HomeFrame extends javax.swing.JFrame {
         jb_Close.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Close_40px_Off.png"))); // NOI18N
         jb_Close.setBorderPainted(false);
         jb_Close.setContentAreaFilled(false);
-        jb_Close.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jb_Close.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jb_Close.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Close_40px_1_On.png"))); // NOI18N
         jb_Close.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Close_40px_1_On.png"))); // NOI18N
         jb_Close.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Close_40px_1_On.png"))); // NOI18N
@@ -137,7 +138,7 @@ public class HomeFrame extends javax.swing.JFrame {
 
         jl_menu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_menu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Menu_32px.png"))); // NOI18N
-        jl_menu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jl_menu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jl_menu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jl_menuMouseClicked(evt);
@@ -147,6 +148,11 @@ public class HomeFrame extends javax.swing.JFrame {
 
         jl_menuSupport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_menuSupport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Online_Support_32px_1.png"))); // NOI18N
+        jl_menuSupport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jl_menuSupportMouseClicked(evt);
+            }
+        });
         jp_home.add(jl_menuSupport, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 50, 40, 40));
 
         jl_menuAbout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -223,8 +229,15 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jl_adminIconMouseClicked
 
     private void jl_menuAboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_menuAboutMouseClicked
-        
+        JOptionPane.showMessageDialog(null, "Product Version: Bibliotech: V1.2 \n" +
+                                            "Updates: First update, everything working \n" +
+                                            "Runtime: Java(TM) SE Runtime Environment 1.8.0_111-b14");
     }//GEN-LAST:event_jl_menuAboutMouseClicked
+
+    private void jl_menuSupportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_menuSupportMouseClicked
+        JOptionPane.showMessageDialog(null, "Programadores: \n Jean Paul Sagot Vargas -B56438"
+                                      + "\n Jesus Felipe Torres -");
+    }//GEN-LAST:event_jl_menuSupportMouseClicked
 
     /**
      * @param args the command line arguments
