@@ -6,9 +6,7 @@
 package Interface;
 
 import File.FileSerializable;
-import domain.Books;
 import domain.materials;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -21,30 +19,11 @@ public class InsertMaterials extends javax.swing.JFrame {
     FileOutputStream fos;
     ObjectOutputStream output;
     materials materials;
-    
+    //Contructor 
     public InsertMaterials() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
-        jcb_condition.removeAllItems();
-        jcb_condition.addItem("Seleccionar");
-        jcb_condition.addItem("Buena");
-        jcb_condition.addItem("Regular");
-        jcb_condition.addItem("Mala");
-        
-        jcb_type.removeAllItems();
-        jcb_type.addItem("Seleccionar");
-        jcb_type.addItem("Laptop");
-        jcb_type.addItem("Proyector");
-        jcb_type.addItem("Parlantes");
-        jcb_type.addItem("CD");
-        jcb_type.addItem("DVD");
-        
-        jcb_hasProps.removeAllItems();
-        jcb_hasProps.addItem("Seleccionar");
-        jcb_hasProps.addItem("Si tiene");
-        jcb_hasProps.addItem("No tiene");
-        
+        itemsComboBoxMaterials();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -346,6 +325,28 @@ public class InsertMaterials extends javax.swing.JFrame {
     private javax.swing.JTextField jtf_name;
     // End of variables declaration//GEN-END:variables
     
+    //Metodo que compone los items de seleccion 
+    public void itemsComboBoxMaterials(){    
+        jcb_condition.removeAllItems();
+        jcb_condition.addItem("Seleccionar");
+        jcb_condition.addItem("Buena");
+        jcb_condition.addItem("Regular");
+        jcb_condition.addItem("Mala");
+        
+        jcb_type.removeAllItems();
+        jcb_type.addItem("Seleccionar");
+        jcb_type.addItem("Laptop");
+        jcb_type.addItem("Proyector");
+        jcb_type.addItem("Parlantes");
+        jcb_type.addItem("CD");
+        jcb_type.addItem("DVD");
+        
+        jcb_hasProps.removeAllItems();
+        jcb_hasProps.addItem("Seleccionar");
+        jcb_hasProps.addItem("Si tiene");
+        jcb_hasProps.addItem("No tiene");
+        
+    }
     //Metodo limpia los espacios de texto una vez se hayan ingresado 
     public void clean(){
         jtf_brand.setText("Inserte la marca del articulo");

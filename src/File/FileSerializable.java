@@ -1,6 +1,5 @@
 package File;
 
-import domain.Books;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,14 +17,18 @@ public class FileSerializable {
     ObjectInputStream input;
     ArrayList<Object>arrayListObject = new ArrayList<Object>();
     File myFile ;
-    
+    //Constructor
     public FileSerializable(String path) {
         super();
         //ruta del archivo
         this.path = path;
         myFile = new File(path);
     }
-    
+    /*Metodo de guardado por Serializable
+    * @param object: Object
+    * @throws IOException
+    * @throws ClassNotFoundException
+    */
     public void serialize(Object object) throws IOException, ClassNotFoundException{
         if(myFile.exists()){
         ObjectInputStream objectInput = new ObjectInputStream(new FileInputStream(myFile));
@@ -37,16 +40,16 @@ public class FileSerializable {
         arrayListObject.add(object);
         output.writeUnshared(arrayListObject);
         output.close();   
-    }
-    
-    public ArrayList<Object> readSerializeBooks() throws IOException, ClassNotFoundException{
-         
+    }//Fin del Metodo
+    /*Metodo de lectura de Datos en memoria
+    * @return ArrayList de tipo Object; lista guardada de Objetos
+    * @throws IOException
+    * @throws ClassNotFoundException
+    */
+    public ArrayList<Object> readSerializeBooks() throws IOException, ClassNotFoundException{ 
         input = new   ObjectInputStream(new FileInputStream(myFile));
         ArrayList<Object> arraysListBooks = (ArrayList<Object>)input.readObject();
         input.close();
         return arraysListBooks;
-           }
-       
-       
-      
-}
+           }//fin del metodo 
+}//Fin de la clase

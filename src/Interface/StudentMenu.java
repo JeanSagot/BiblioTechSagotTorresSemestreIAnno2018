@@ -16,29 +16,26 @@ public class StudentMenu extends javax.swing.JFrame {
     studentsRegistry studRegistry; 
     File fileStudent;
     students studs;
-    
+    //Constructor
     public StudentMenu() throws IOException {
         initComponents();
         this.setLocationRelativeTo(null);//Para que el programa aparezca en el centro
-        
         slide = new sSlide();
-        
         //para que el focus empiece en el boton
         jb_logIn.requestFocus();
-        
         //formato de carreras jcombo
         jcb_career1.removeAllItems();
+        jcb_career1.addItem("Seleccionar");
         jcb_career1.addItem("Agronomia");
         jcb_career1.addItem("Educacion");
         jcb_career1.addItem("Informatica");
-        
         //formato de seleccion de año
+        
         jcb_year.removeAllItems();
-        jcb_year.addItem("2018");
-        jcb_year.addItem("2019");
-        jcb_year.addItem("2020");
-        jcb_year.addItem("2021");
-        jcb_year.addItem("2022");
+        jcb_year.addItem("Seleccionar");
+        for (int i=2010; i<2030; i++){
+        jcb_year.addItem(i+"");
+        }
         
         jb_addStudent1.setEnabled(false);
         JP_Register.setVisible(false);
@@ -174,7 +171,7 @@ public class StudentMenu extends javax.swing.JFrame {
         });
         JP_Register.add(jb_ViewCarnet, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 373, 40, 30));
 
-        getContentPane().add(JP_Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(-280, 0, 270, 580));
+        getContentPane().add(JP_Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 580));
 
         JP_login.setBackground(new java.awt.Color(255, 255, 255));
         JP_login.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -391,10 +388,16 @@ public class StudentMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jtf_CarnetMouseClicked
 
     private void jb_logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_logInActionPerformed
+//<<<<<<< HEAD
+    // BookLoan booloan= new BookLoan();
+     //booloan.setVisible(true);
+        JP_Register.setVisible(false); 
+//=======
   //   BookLoan booloan= new BookLoan();
     // MaterialLoan material=new MaterialLoan();
      JP_Register.setVisible(false);
         //this.setVisible(false); 
+//>>>>>>> 15152250a8f0d39fd697437aa819c435ef746885
      
         String carnet = makeCarnet(jcb_career1.getSelectedItem()+"",
                                       jcb_year.getSelectedItem()+""); 
