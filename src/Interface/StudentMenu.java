@@ -391,16 +391,16 @@ public class StudentMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jtf_CarnetMouseClicked
 
     private void jb_logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_logInActionPerformed
-<<<<<<< HEAD
+//<<<<<<< HEAD
     // BookLoan booloan= new BookLoan();
      //booloan.setVisible(true);
         JP_Register.setVisible(false); 
-=======
+//=======
   //   BookLoan booloan= new BookLoan();
     // MaterialLoan material=new MaterialLoan();
      JP_Register.setVisible(false);
         //this.setVisible(false); 
->>>>>>> 15152250a8f0d39fd697437aa819c435ef746885
+//>>>>>>> 15152250a8f0d39fd697437aa819c435ef746885
      
         String carnet = makeCarnet(jcb_career1.getSelectedItem()+"",
                                       jcb_year.getSelectedItem()+""); 
