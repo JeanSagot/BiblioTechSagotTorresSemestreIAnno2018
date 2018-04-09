@@ -20,8 +20,6 @@ public class MaterialLoan extends javax.swing.JFrame {
         showMatrix();
         Autocomplete();
     }
-
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -258,6 +256,7 @@ public class MaterialLoan extends javax.swing.JFrame {
             String matrix [][] = new String[arrayListObjects.size()][5];
             matrix1 = new String[arrayListObjects.size()][0];
             ArrayList<materials> arrayListMaterial = new ArrayList<materials>();
+            //matriz integra informacion a tabla
             for(int i=0; i<arrayListObjects.size(); i++){
                 arrayListMaterial.add((materials)arrayListObjects.get(i));
                 matrix [i][0] = arrayListMaterial.get(i).getName();
@@ -294,7 +293,7 @@ public class MaterialLoan extends javax.swing.JFrame {
             matrixTemp[0][3]=matrix1[i][3];
             matrixTemp[0][4]=matrix1[i][4];
                
-       }}
+       }}//Fin del for y if 
         jt_Materials.setModel(new javax.swing.table.DefaultTableModel(
             matrixTemp,
             new String [] {
@@ -307,7 +306,7 @@ public class MaterialLoan extends javax.swing.JFrame {
         for (int i=0; i<matrix1.length; i++){
           autocomplete.addItem(matrix1[i][0]);
         }
-    }
+    }//Fin del metodo
     /**
      * @param args the command line arguments
      */
@@ -342,7 +341,6 @@ public class MaterialLoan extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jb_accept;
