@@ -8,13 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class BookLoan extends javax.swing.JFrame {
     BookInsert bookInsert = new BookInsert();
     private  TextAutoCompleter autocomplete;
     String matrix1 [][];
-    
+    //Constructor 
     public BookLoan() {
          initComponents();
          showMatrix();
@@ -200,6 +199,7 @@ public class BookLoan extends javax.swing.JFrame {
         selectBook();
     }//GEN-LAST:event_jb_findActionPerformed
 
+    //Muestra la la matriz con los libros ingresados en un table
    public void showMatrix(){
         FileSerializable file = new FileSerializable("bookInfo.dat");
         try {
@@ -228,7 +228,7 @@ public class BookLoan extends javax.swing.JFrame {
             Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-   
+   //Selecciona un libro en especifico buscado lo muetraen la matriz y los label
    public void selectBook(){ 
        String matrixTemp [][] = new String[matrix1.length][6];
    for (int i=0; i<matrix1.length; i++){
@@ -249,12 +249,11 @@ public class BookLoan extends javax.swing.JFrame {
                 "Nombre ", "Tema", "Estado", "Tipo","ISBN","Año"
             }));
    }
-   
+   //Muestra las opciones a escoger en la barra buscadora 
    public void Autocomplete(){
         autocomplete = new TextAutoCompleter(jtf_findBook);
         for (int i=0; i<matrix1.length; i++){
           autocomplete.addItem(matrix1[i][0]);
-
         }
     }
     /**

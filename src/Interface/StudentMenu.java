@@ -16,29 +16,26 @@ public class StudentMenu extends javax.swing.JFrame {
     studentsRegistry studRegistry; 
     File fileStudent;
     students studs;
-    
+    //Constructor
     public StudentMenu() throws IOException {
         initComponents();
         this.setLocationRelativeTo(null);//Para que el programa aparezca en el centro
-        
         slide = new sSlide();
-        
         //para que el focus empiece en el boton
         jb_logIn.requestFocus();
-        
         //formato de carreras jcombo
         jcb_career1.removeAllItems();
+        jcb_career1.addItem("Seleccionar");
         jcb_career1.addItem("Agronomia");
         jcb_career1.addItem("Educacion");
         jcb_career1.addItem("Informatica");
-        
         //formato de seleccion de año
+        
         jcb_year.removeAllItems();
-        jcb_year.addItem("2018");
-        jcb_year.addItem("2019");
-        jcb_year.addItem("2020");
-        jcb_year.addItem("2021");
-        jcb_year.addItem("2022");
+        jcb_year.addItem("Seleccionar");
+        for (int i=2010; i<2030; i++){
+        jcb_year.addItem(i+"");
+        }
         
         jb_addStudent1.setEnabled(false);
         JP_Register.setVisible(false);

@@ -3,27 +3,23 @@ package Interface;
 
 import File.FileSerializable;
 import com.mxrck.autocompleter.TextAutoCompleter;
-import domain.Books;
 import domain.materials;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.MetaChar;
-
 
 public class MaterialLoan extends javax.swing.JFrame {
-
+    
     InsertMaterials materialInsert = new InsertMaterials();
     private  TextAutoCompleter autocomplete;
     String matrix1 [][];
+    //Constructor
     public MaterialLoan() {
         initComponents();
         showMatrix();
         Autocomplete();
     }
-
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -239,7 +235,7 @@ public class MaterialLoan extends javax.swing.JFrame {
 
     private void jtf_findMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_findMaterialActionPerformed
         jtf_findMaterial.setText("");
-        selectBook();
+        selectMaterial();
     }//GEN-LAST:event_jtf_findMaterialActionPerformed
 
     private void jb_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_backActionPerformed
@@ -250,9 +246,9 @@ public class MaterialLoan extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_backActionPerformed
 
     private void jb_findActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_findActionPerformed
-    selectBook();
+    selectMaterial();
     }//GEN-LAST:event_jb_findActionPerformed
-
+      //Muestra la la matriz con los libros ingresados en un table
       public void showMatrix(){
          FileSerializable file = new FileSerializable("MaterialInfo.dat");
         try {
@@ -260,6 +256,7 @@ public class MaterialLoan extends javax.swing.JFrame {
             String matrix [][] = new String[arrayListObjects.size()][5];
             matrix1 = new String[arrayListObjects.size()][0];
             ArrayList<materials> arrayListMaterial = new ArrayList<materials>();
+            //matriz integra informacion a tabla
             for(int i=0; i<arrayListObjects.size(); i++){
                 arrayListMaterial.add((materials)arrayListObjects.get(i));
                 matrix [i][0] = arrayListMaterial.get(i).getName();
@@ -280,7 +277,8 @@ public class MaterialLoan extends javax.swing.JFrame {
             Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-      public void selectBook(){ 
+      //Selecciona un Material en especifico buscado lo muetraen la matriz y los label
+      public void selectMaterial(){ 
        String matrixTemp [][] = new String[matrix1.length][5];
        for (int i=0; i<matrix1.length; i++){
        if (autocomplete.getItemSelected().equals(matrix1[i][0])){
@@ -295,20 +293,20 @@ public class MaterialLoan extends javax.swing.JFrame {
             matrixTemp[0][3]=matrix1[i][3];
             matrixTemp[0][4]=matrix1[i][4];
                
-       }}
+       }}//Fin del for y if 
         jt_Materials.setModel(new javax.swing.table.DefaultTableModel(
             matrixTemp,
             new String [] {
                 "Nombre", "Tipo", "Condicion", "Marca", "Accesorios"
             }));
-   }
+   }//Fin de metodo
+     //Muestra las opciones a escoger en la barra buscadora
      public void Autocomplete(){
         autocomplete = new TextAutoCompleter(jtf_findMaterial);
         for (int i=0; i<matrix1.length; i++){
           autocomplete.addItem(matrix1[i][0]);
-
         }
-    }
+    }//Fin del metodo
     /**
      * @param args the command line arguments
      */
@@ -343,7 +341,6 @@ public class MaterialLoan extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jb_accept;

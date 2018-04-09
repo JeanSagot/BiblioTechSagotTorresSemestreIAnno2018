@@ -2,10 +2,6 @@ package domain;
 
 import java.io.Serializable;
 
-/**
- *
- * @author jeanp
- */
 public class materials implements Serializable{
     private String name, type, condition, brand, accesories;
 
@@ -68,9 +64,7 @@ public class materials implements Serializable{
     public void setAccesories(String accesories) {
         this.accesories = accesories;
     }
-    
     //toString
-
     @Override
     public String toString() {
         return "materials{" + "name=" + name + ", type=" + type + 
