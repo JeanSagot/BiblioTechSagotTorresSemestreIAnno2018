@@ -257,7 +257,7 @@ public class InsertMaterials extends javax.swing.JFrame {
            }else{
             file = new FileSerializable("MaterialInfo.dat");
             materials = new materials(jtf_name.getText(),jcb_type.getSelectedItem()+"",jcb_condition.getSelectedItem()+"",
-                                      jtf_brand.getText(),jcb_hasProps.getSelectedItem()+"");
+                                      jtf_brand.getText(),jcb_hasProps.getSelectedItem()+"",false);
             JOptionPane.showMessageDialog(null, "Se ha insertado el Audiovisual "+jtf_name.getText()+" con éxito");
             clean();            
         try {

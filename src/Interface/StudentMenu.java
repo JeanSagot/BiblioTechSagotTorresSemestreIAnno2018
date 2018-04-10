@@ -16,6 +16,7 @@ public class StudentMenu extends javax.swing.JFrame {
     studentsRegistry studRegistry; 
     File fileStudent;
     students studs;
+    returnFrame returnFrame ;
     //Constructor
     public StudentMenu() throws IOException {
         initComponents();
@@ -314,6 +315,11 @@ public class StudentMenu extends javax.swing.JFrame {
         jb_goReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Feed_In_64px.png"))); // NOI18N
         jb_goReturn.setText("Devolver libros o materiales");
         jb_goReturn.setBorderPainted(false);
+        jb_goReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_goReturnActionPerformed(evt);
+            }
+        });
         jp_body.add(jb_goReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 250, 60));
 
         getContentPane().add(jp_body, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 780, 520));
@@ -400,12 +406,13 @@ public class StudentMenu extends javax.swing.JFrame {
 
     private void jb_logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_logInActionPerformed
 //<<<<<<< HEAD
-    // BookLoan booloan= new BookLoan();
-     //booloan.setVisible(true);
-        JP_Register.setVisible(false); 
+    //BookLoan booloan= new BookLoan();
+     MaterialLoan material=new MaterialLoan();
+     material.setVisible(true);
+        //JP_Register.setVisible(false); 
 //=======
   //   BookLoan booloan= new BookLoan();
-    // MaterialLoan material=new MaterialLoan();
+    
      JP_Register.setVisible(false);
         //this.setVisible(false); 
 //>>>>>>> 15152250a8f0d39fd697437aa819c435ef746885
@@ -448,12 +455,14 @@ public class StudentMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jcb_career1ActionPerformed
 
     private void jb_addStudent1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_addStudent1ActionPerformed
+             
+        
         String carnet = makeCarnet(jcb_career1.getSelectedItem()+"",
                                       jcb_year.getSelectedItem()+""); 
         try {
             
             if(studRegistry.findCarnet(carnet) == false){
-            studs = new students(jcb_career1.getSelectedItem()+"", Integer.parseInt(jcb_year.getSelectedItem()+""), carnet);
+            studs = new students(jcb_career1.getSelectedItem()+"", Integer.parseInt(jcb_year.getSelectedItem()+""), carnet,"");
             studRegistry.addEndRecord(studs);
             JOptionPane.showMessageDialog(null, "El estudiante se ingreso correctamente");
             JP_Register.setVisible(false);
@@ -483,6 +492,11 @@ public class StudentMenu extends javax.swing.JFrame {
                 + "1. Asegurate de estar bien registrado, el cual si aun no lo estas puedes hacerlo "
                 + " el boton de registrarse abajo.\n 2. Luego logearte con tu carnet.");
     }//GEN-LAST:event_jl_menuAboutMouseClicked
+
+    private void jb_goReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_goReturnActionPerformed
+        returnFrame = new returnFrame();
+        returnFrame.setVisible(true);
+    }//GEN-LAST:event_jb_goReturnActionPerformed
 
     
     //Se hace el carnet segun lo que escogio el estudiante
