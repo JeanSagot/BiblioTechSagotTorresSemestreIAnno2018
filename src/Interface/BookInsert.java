@@ -224,7 +224,7 @@ public class BookInsert extends javax.swing.JFrame {
             books = new Books(jtf_nameInsert.getText(), jcb_subject.getSelectedItem()+"",
                           jcb_condition.getSelectedItem()+"",jcb_bookType.getSelectedItem()+"", 
                           Integer.parseInt(jtf_isbnInsert.getText()),
-                          Integer.parseInt(jtf_yearInsert.getText()));
+                          Integer.parseInt(jtf_yearInsert.getText()),false);
             JOptionPane.showMessageDialog(null, "Se ha insertado el libro "+jtf_nameInsert.getText()+" con éxito");
             cleanUp();         
         try {

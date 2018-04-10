@@ -3,7 +3,7 @@ package domain;
 
 public class students {
     //atributos
-    private String career, carnet;
+    private String career, carnet, dateReturnLoan;
     private int year;
     
     //constructores
@@ -11,12 +11,14 @@ public class students {
         this.career = "";
         this.year = 0;
         this.carnet = "";
+        this.dateReturnLoan = "";
     }
 
-    public students(String career, int year, String carnet) {
+    public students(String career, int year, String carnet,String dateReturnLoan) {
         this.career = career;
         this.year = year;
         this.carnet = carnet;
+        this.dateReturnLoan = dateReturnLoan;
     }
     
     //getter and setters
@@ -43,12 +45,22 @@ public class students {
     public void setCarnet(String carnet) {
         this.carnet = carnet;
     }
+
+    public String getDateReturnLoan() {
+        return dateReturnLoan;
+    }
+
+    public void setDateReturnLoan(String dateReturnLoan) {
+        this.dateReturnLoan = dateReturnLoan;
+    }
+    
     
     //toString method
+    
     @Override
     public String toString() {
-        return "students{" + "career=" + career + 
-                ", year=" + year + ", carnet=" + carnet + '}';
+        return "students{" + "career=" + career + ", carnet=" + carnet +
+                ", dateReturnLoan=" + dateReturnLoan + ", year=" + year + '}';
     }
 
     /*
@@ -57,7 +69,7 @@ public class students {
     que tiene la clase
      */
     public int sizeInBytes() {
-        //long: necesita dos bytes
+        //int: necesita 4 bytes
         //String: necesita 2 bytes de espacio.
         return this.getCareer().length() * 2 + 8;
     }

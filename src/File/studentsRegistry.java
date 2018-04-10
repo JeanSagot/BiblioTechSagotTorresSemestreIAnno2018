@@ -127,11 +127,11 @@ public class studentsRegistry {
         
         for(int i=0; i<this.regsQuantity; i++){
             studs = this.getStudents(i);    
-            if(studs.getCarnet().equalsIgnoreCase(carnet))
+            if(studs.getCarnet().equalsIgnoreCase(carnet)){
                 return true;
+            }
         }//fin for
         return false;
         }//fin findCarnet
-     
-     
+
 }//fin de la clase

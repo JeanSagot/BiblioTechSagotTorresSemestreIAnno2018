@@ -4,12 +4,16 @@ package Interface;
 import File.FileSerializable;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import domain.Books;
+import domain.students;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class BookLoan extends javax.swing.JFrame {
+    FileSerializable file;
+    Books books;
     BookInsert bookInsert = new BookInsert();
     private  TextAutoCompleter autocomplete;
     String matrix1 [][];
@@ -44,6 +48,8 @@ public class BookLoan extends javax.swing.JFrame {
         jl_bookname = new javax.swing.JLabel();
         jb_accept = new javax.swing.JButton();
         jseparator = new javax.swing.JSeparator();
+        jDatePrestamoBooks = new com.toedter.calendar.JDateChooser();
+        jDateDevolucionBooks = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -72,13 +78,13 @@ public class BookLoan extends javax.swing.JFrame {
 
         jt_books.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "", "Title 3", "Title 4", "Título 5", ""
+                "Nombre", "", "Title 3", "Title 4", "Título 5", "", "Título 7"
             }
         ));
         jt_books.setRowHeight(18);
@@ -169,12 +175,19 @@ public class BookLoan extends javax.swing.JFrame {
         jPanel1.add(jl_bookname, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 90, 230, 20));
 
         jb_accept.setText("Aceptar");
+        jb_accept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_acceptActionPerformed(evt);
+            }
+        });
         jPanel1.add(jb_accept, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 460, 100, 40));
 
         jseparator.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jseparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, 10, 470));
+        jPanel1.add(jDatePrestamoBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 250, -1, -1));
+        jPanel1.add(jDateDevolucionBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 340, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 580));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1060, 580));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -200,12 +213,23 @@ public class BookLoan extends javax.swing.JFrame {
         selectBook();
     }//GEN-LAST:event_jb_findActionPerformed
 
+    private void jb_acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_acceptActionPerformed
+        try {
+            borrowedBooks();
+        } catch (IOException ex) {
+            Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        showMatrix();
+    }//GEN-LAST:event_jb_acceptActionPerformed
+
     //Muestra la la matriz con los libros ingresados en un table
    public void showMatrix(){
         FileSerializable file = new FileSerializable("bookInfo.dat");
         try {
             ArrayList<Object> arrayListObjects = file.readSerializeBooks();
-            String matrix [][] = new String[arrayListObjects.size()][6];
+            String matrix [][] = new String[arrayListObjects.size()][7];
             matrix1 = new String[arrayListObjects.size()][0];
             ArrayList<Books> arrayListBooksr = new ArrayList<Books>();
             for(int i=0; i<arrayListObjects.size(); i++){
@@ -216,12 +240,13 @@ public class BookLoan extends javax.swing.JFrame {
                 matrix [i][3] = arrayListBooksr.get(i).getType();
                 matrix [i][4] = arrayListBooksr.get(i).getISBN()+"";
                 matrix [i][5] = arrayListBooksr.get(i).getYear()+"";
+                matrix [i][6] = arrayListBooksr.get(i).isBorrowedBooks()+"";
             }
             this.matrix1=matrix;
             jt_books.setModel(new javax.swing.table.DefaultTableModel(
             matrix,
             new String [] {
-                "Nombre ", "Tema", "Estado", "Tipo","ISBN","Año"
+                "Nombre ", "Tema", "Estado", "Tipo","ISBN","Año","Prestado"
             }));  
         } catch (IOException ex) {
             Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
@@ -229,26 +254,46 @@ public class BookLoan extends javax.swing.JFrame {
             Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+   
    //Selecciona un libro en especifico buscado lo muetraen la matriz y los label
    public void selectBook(){ 
-       String matrixTemp [][] = new String[matrix1.length][6];
+      String matrixTemp [][] = new String[matrix1.length][7]; 
    for (int i=0; i<matrix1.length; i++){
        if (autocomplete.getItemSelected().equals(matrix1[i][0])){
             jl_bookname.setText(matrix1[i][0]);
             jl_isbn.setText(matrix1[i][4]);
-            
             matrixTemp[0][0]=matrix1[i][0];
             matrixTemp[0][1]=matrix1[i][1];
             matrixTemp[0][2]=matrix1[i][2];
             matrixTemp[0][3]=matrix1[i][3];
             matrixTemp[0][4]=matrix1[i][4];
-            matrixTemp[0][5]=matrix1[i][5];   
+            matrixTemp[0][5]=matrix1[i][5];
+            matrixTemp[0][6]=matrix1[i][6];
        }}
         jt_books.setModel(new javax.swing.table.DefaultTableModel(
             matrixTemp,
             new String [] {
-                "Nombre ", "Tema", "Estado", "Tipo","ISBN","Año"
+                "Nombre ", "Tema", "Estado", "Tipo","ISBN","Año","Prestado"
             }));
+   }
+   
+   //Prestamo de libros
+   public void borrowedBooks() throws IOException, ClassNotFoundException{
+      FileSerializable file = new FileSerializable("bookInfo.dat");
+            ArrayList<Object> arrayListObjects = file.readSerializeBooks();
+            ArrayList<Books> arrayListBooksr = new ArrayList<Books>();
+            
+            for(int i=0; i<arrayListObjects.size(); i++){
+            arrayListBooksr.add((Books)arrayListObjects.get(i));
+            if(autocomplete.getItemSelected().equals(arrayListBooksr.get(i).getName())&& arrayListBooksr.get(i).isBorrowedBooks()== true){
+                JOptionPane.showMessageDialog(null, "El libro "+autocomplete.getItemSelected()+" ya ha sido prestado");
+            }
+            if (autocomplete.getItemSelected().equals(arrayListBooksr.get(i).getName()) && arrayListBooksr.get(i).isBorrowedBooks()== false){
+                arrayListBooksr.get(i).setBorrowedBooks(true);
+            }
+            file.fileDelete("bookInfo.dat");
+            file.serialize(arrayListBooksr.get(i));
+            }
    }
    //Muestra las opciones a escoger en la barra buscadora 
    public void Autocomplete(){
@@ -293,6 +338,8 @@ public class BookLoan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser jDateDevolucionBooks;
+    private com.toedter.calendar.JDateChooser jDatePrestamoBooks;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_accept;

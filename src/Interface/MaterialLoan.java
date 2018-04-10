@@ -6,8 +6,10 @@ import com.mxrck.autocompleter.TextAutoCompleter;
 import domain.materials;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class MaterialLoan extends javax.swing.JFrame {
     
@@ -50,6 +52,8 @@ public class MaterialLoan extends javax.swing.JFrame {
         js_Line3 = new javax.swing.JSeparator();
         jl_typeShow = new javax.swing.JLabel();
         jl_conditionShow = new javax.swing.JLabel();
+        jDatePrestamoMaterials = new com.toedter.calendar.JDateChooser();
+        jDateDevolucionMaterials = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -75,13 +79,13 @@ public class MaterialLoan extends javax.swing.JFrame {
 
         jt_Materials.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Tipo", "Condicion", "Marca", "Accesorios"
+                "Nombre", "Tipo", "Condicion", "Marca", "Accesorios", "Prestado"
             }
         ));
         jsp_materials.setViewportView(jt_Materials);
@@ -171,6 +175,11 @@ public class MaterialLoan extends javax.swing.JFrame {
         jPanel1.add(jl_nameShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 90, 230, 20));
 
         jb_accept.setText("Aceptar");
+        jb_accept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_acceptActionPerformed(evt);
+            }
+        });
         jPanel1.add(jb_accept, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 520, 100, 40));
 
         jseparator.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -205,6 +214,8 @@ public class MaterialLoan extends javax.swing.JFrame {
         jl_conditionShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_conditionShow.setText("condicion");
         jPanel1.add(jl_conditionShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 210, 230, 20));
+        jPanel1.add(jDatePrestamoMaterials, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 370, -1, -1));
+        jPanel1.add(jDateDevolucionMaterials, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 440, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -250,12 +261,23 @@ public class MaterialLoan extends javax.swing.JFrame {
     private void jb_findActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_findActionPerformed
     selectMaterial();
     }//GEN-LAST:event_jb_findActionPerformed
+
+    private void jb_acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_acceptActionPerformed
+        try {
+            borrowedBooks();
+        } catch (IOException ex) {
+            Logger.getLogger(MaterialLoan.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MaterialLoan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        showMatrix();
+    }//GEN-LAST:event_jb_acceptActionPerformed
       //Muestra la la matriz con los libros ingresados en un table
       public void showMatrix(){
          FileSerializable file = new FileSerializable("MaterialInfo.dat");
         try {
             ArrayList<Object> arrayListObjects = file.readSerializeBooks();
-            String matrix [][] = new String[arrayListObjects.size()][5];
+            String matrix [][] = new String[arrayListObjects.size()][6];
             matrix1 = new String[arrayListObjects.size()][0];
             ArrayList<materials> arrayListMaterial = new ArrayList<materials>();
             //matriz integra informacion a tabla
@@ -266,12 +288,13 @@ public class MaterialLoan extends javax.swing.JFrame {
                 matrix [i][2] = arrayListMaterial.get(i).getCondition();
                 matrix [i][3] = arrayListMaterial.get(i).getBrand();
                 matrix [i][4] = arrayListMaterial.get(i).getAccesories();
+                matrix [i][5] = arrayListMaterial.get(i).isBorrowedMaterials()+"";
             }
             this.matrix1=matrix;
             jt_Materials.setModel(new javax.swing.table.DefaultTableModel(
             matrix,
             new String [] {
-                "Nombre", "Tipo", "Condicion", "Marca", "Accesorios"
+                "Nombre", "Tipo", "Condicion", "Marca", "Accesorios","Prestado"
             }));  
         } catch (IOException ex) {
             Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
@@ -281,7 +304,7 @@ public class MaterialLoan extends javax.swing.JFrame {
     }
       //Selecciona un Material en especifico buscado lo muetraen la matriz y los label
       public void selectMaterial(){ 
-       String matrixTemp [][] = new String[matrix1.length][5];
+       String matrixTemp [][] = new String[matrix1.length][6];
        for (int i=0; i<matrix1.length; i++){
        if (autocomplete.getItemSelected().equals(matrix1[i][0])){
             jl_nameShow.setText(matrix1[i][0]);
@@ -294,14 +317,42 @@ public class MaterialLoan extends javax.swing.JFrame {
             matrixTemp[0][2]=matrix1[i][2];
             matrixTemp[0][3]=matrix1[i][3];
             matrixTemp[0][4]=matrix1[i][4];
+            matrixTemp[0][5]=matrix1[i][5];
                
        }}//Fin del for y if 
         jt_Materials.setModel(new javax.swing.table.DefaultTableModel(
             matrixTemp,
             new String [] {
-                "Nombre", "Tipo", "Condicion", "Marca", "Accesorios"
+                "Nombre", "Tipo", "Condicion", "Marca", "Accesorios","Prestado"
             }));
    }//Fin de metodo
+      
+         //Prestamo de libros
+   public void borrowedBooks() throws IOException, ClassNotFoundException{
+      FileSerializable file = new FileSerializable("MaterialInfo.dat");
+            ArrayList<Object> arrayListObjects = file.readSerializeBooks();
+            ArrayList<materials> arrayListMaterial = new ArrayList<materials>();
+            
+            for(int i=0; i<arrayListObjects.size(); i++){
+            arrayListMaterial.add((materials)arrayListObjects.get(i));
+            if(autocomplete.getItemSelected().equals(arrayListMaterial.get(i).getName())&& arrayListMaterial.get(i).isBorrowedMaterials()== true){
+                JOptionPane.showMessageDialog(null, "El material "+autocomplete.getItemSelected()+" ya ha sido prestado");
+            }
+            if (autocomplete.getItemSelected().equals(arrayListMaterial.get(i).getName()) && arrayListMaterial.get(i).isBorrowedMaterials() == false){
+            arrayListMaterial.get(i).setBorrowedMaterials(true);
+            }
+            file.fileDelete("MaterialInfo.dat");
+            file.serialize(arrayListMaterial.get(i));
+            }//Cierre del for
+   }//Fin del metodo
+   
+   public int controlDataExit(){
+   return jDateDevolucionMaterials.getCalendar().get(Calendar.DAY_OF_MONTH);
+   }
+    public int controlMonthExit(){
+   return jDateDevolucionMaterials.getCalendar().get(Calendar.MONTH);
+   }
+   
      //Muestra las opciones a escoger en la barra buscadora
      public void Autocomplete(){
         autocomplete = new TextAutoCompleter(jtf_findMaterial);
@@ -344,6 +395,8 @@ public class MaterialLoan extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser jDateDevolucionMaterials;
+    private com.toedter.calendar.JDateChooser jDatePrestamoMaterials;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jb_accept;
     private javax.swing.JButton jb_back;

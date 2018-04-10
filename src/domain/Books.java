@@ -7,6 +7,7 @@ public class Books implements Serializable{
     
     private String name, subject, condition, type;
     private int year, ISBN;
+    private boolean borrowedBooks;
 
     //constructors
     public Books() {
@@ -16,15 +17,17 @@ public class Books implements Serializable{
         this.year=0;
         this.ISBN=0;
         this.type = "";
+        this.borrowedBooks = false;
     }
 
-    public Books(String name, String subject, String condition, String type, int year, int ISBN) {
+    public Books(String name, String subject, String condition, String type, int year, int ISBN,boolean borrowedBooks) {
         this.name = name;
         this.subject = subject;
         this.condition = condition;
         this.type = type;
         this.year = year;
         this.ISBN = ISBN;
+        this.borrowedBooks = borrowedBooks;
     }
 
     //getters and setters
@@ -76,14 +79,22 @@ public class Books implements Serializable{
     public void setISBN(int ISBN) {
         this.ISBN = ISBN;
     }
+    public boolean isBorrowedBooks() {
+        return borrowedBooks;
+    }
+
+    public void setBorrowedBooks(boolean borrowedBooks) {
+        this.borrowedBooks = borrowedBooks;
+    }
 
     //toString
+
     @Override
     public String toString() {
-        return "Books{" + "name=" + name + ", subject=" + subject + ", "
-                + "condition=" + condition + ", type=" + type + ", "
-                + "year=" + year + ", ISBN=" + ISBN + '}';
+        return "Books{" + "name=" + name + ", subject=" + subject + ", condition=" + condition + 
+                ", type=" + type + ", year=" + year + ", ISBN=" + ISBN + ", borrowedBooks=" + borrowedBooks + '}';
     }
+   
     
     
 }//end of class

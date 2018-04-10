@@ -52,4 +52,8 @@ public class FileSerializable {
         input.close();
         return arraysListBooks;
            }//fin del metodo 
+    
+    public void fileDelete (String path){
+        myFile.delete();
+    }
 }//Fin de la clase
