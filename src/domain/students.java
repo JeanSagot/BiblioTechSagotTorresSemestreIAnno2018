@@ -3,7 +3,7 @@ package domain;
 
 public class students {
     //atributos
-    private String career, carnet, dateReturnLoan;
+    private String career, carnet;
     private int year;
     
     //constructores
@@ -11,14 +11,12 @@ public class students {
         this.career = "";
         this.year = 0;
         this.carnet = "";
-        this.dateReturnLoan = "";
     }
 
-    public students(String career, int year, String carnet,String dateReturnLoan) {
+    public students(String career, int year, String carnet) {
         this.career = career;
         this.year = year;
         this.carnet = carnet;
-        this.dateReturnLoan = dateReturnLoan;
     }
     
     //getter and setters
@@ -46,21 +44,12 @@ public class students {
         this.carnet = carnet;
     }
 
-    public String getDateReturnLoan() {
-        return dateReturnLoan;
-    }
-
-    public void setDateReturnLoan(String dateReturnLoan) {
-        this.dateReturnLoan = dateReturnLoan;
-    }
-    
-    
     //toString method
     
     @Override
     public String toString() {
         return "students{" + "career=" + career + ", carnet=" + carnet +
-                ", dateReturnLoan=" + dateReturnLoan + ", year=" + year + '}';
+                 ", year=" + year + '}';
     }
 
     /*
