@@ -230,7 +230,7 @@ public class HomeFrame extends javax.swing.JFrame {
 
     private void jl_menuAboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_menuAboutMouseClicked
         JOptionPane.showMessageDialog(null, "Product Version: Bibliotech: V1.2 \n" +
-                                            "Updates: First update, everything working \n" +
+                                            "Updates: First update, almost working \n" +
                                             "Runtime: Java(TM) SE Runtime Environment 1.8.0_111-b14");
     }//GEN-LAST:event_jl_menuAboutMouseClicked
 

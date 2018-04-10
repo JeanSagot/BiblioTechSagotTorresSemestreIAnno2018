@@ -4,12 +4,12 @@ package Interface;
 import File.FileSerializable;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import domain.Books;
-import domain.students;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import File.bookLoansFile;
 
 public class BookLoan extends javax.swing.JFrame {
     FileSerializable file;
@@ -23,6 +23,7 @@ public class BookLoan extends javax.swing.JFrame {
          this.setLocationRelativeTo(null);
          showMatrix();
          Autocomplete();
+         jt_books.setDefaultEditor(Object.class, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -39,17 +40,17 @@ public class BookLoan extends javax.swing.JFrame {
         jl_logo = new javax.swing.JLabel();
         jl_slogan = new javax.swing.JLabel();
         js_Line = new javax.swing.JSeparator();
-        jl_bookExit = new javax.swing.JLabel();
-        jl_isbn = new javax.swing.JLabel();
-        jl_bookName1 = new javax.swing.JLabel();
-        jl_bookExit1 = new javax.swing.JLabel();
-        jl_bookName2 = new javax.swing.JLabel();
+        jl_bookReturn = new javax.swing.JLabel();
+        jl_isbnShow = new javax.swing.JLabel();
+        jl_ISBN = new javax.swing.JLabel();
+        jl_bookName = new javax.swing.JLabel();
         js_Line1 = new javax.swing.JSeparator();
-        jl_bookname = new javax.swing.JLabel();
+        jl_booknameShow = new javax.swing.JLabel();
         jb_accept = new javax.swing.JButton();
         jseparator = new javax.swing.JSeparator();
         jDatePrestamoBooks = new com.toedter.calendar.JDateChooser();
         jDateDevolucionBooks = new com.toedter.calendar.JDateChooser();
+        jl_bookExit2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -78,6 +79,7 @@ public class BookLoan extends javax.swing.JFrame {
 
         jt_books.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {"Programacion II", "Informatica", "Buena", "E-book", "1234", "2018", "true"},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -88,6 +90,11 @@ public class BookLoan extends javax.swing.JFrame {
             }
         ));
         jt_books.setRowHeight(18);
+        jt_books.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jt_booksMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jt_books);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 460, 220));
@@ -137,44 +144,41 @@ public class BookLoan extends javax.swing.JFrame {
         js_Line.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jPanel1.add(js_Line, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 180, 230, 10));
 
-        jl_bookExit.setBackground(new java.awt.Color(78, 168, 214));
-        jl_bookExit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jl_bookExit.setForeground(new java.awt.Color(78, 168, 214));
-        jl_bookExit.setText("Fecha de devolucion:");
-        jPanel1.add(jl_bookExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 330, 170, 30));
+        jl_bookReturn.setBackground(new java.awt.Color(78, 168, 214));
+        jl_bookReturn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jl_bookReturn.setForeground(new java.awt.Color(78, 168, 214));
+        jl_bookReturn.setText("Fecha de devolucion:");
+        jPanel1.add(jl_bookReturn, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 170, 30));
 
-        jl_isbn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jl_isbn.setText("jLabel2");
-        jPanel1.add(jl_isbn, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 150, 230, 20));
+        jl_isbnShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(jl_isbnShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 150, 230, 20));
 
-        jl_bookName1.setBackground(new java.awt.Color(78, 168, 214));
-        jl_bookName1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jl_bookName1.setForeground(new java.awt.Color(78, 168, 214));
-        jl_bookName1.setText("ISBN:");
-        jPanel1.add(jl_bookName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 150, 90, 30));
+        jl_ISBN.setBackground(new java.awt.Color(78, 168, 214));
+        jl_ISBN.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jl_ISBN.setForeground(new java.awt.Color(78, 168, 214));
+        jl_ISBN.setText("ISBN:");
+        jPanel1.add(jl_ISBN, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 150, 90, 30));
 
-        jl_bookExit1.setBackground(new java.awt.Color(78, 168, 214));
-        jl_bookExit1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jl_bookExit1.setForeground(new java.awt.Color(78, 168, 214));
-        jl_bookExit1.setText("Fecha de prestamo:");
-        jPanel1.add(jl_bookExit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 240, 170, 30));
-
-        jl_bookName2.setBackground(new java.awt.Color(78, 168, 214));
-        jl_bookName2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jl_bookName2.setForeground(new java.awt.Color(78, 168, 214));
-        jl_bookName2.setText("Nombre:");
-        jPanel1.add(jl_bookName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 90, 30));
+        jl_bookName.setBackground(new java.awt.Color(78, 168, 214));
+        jl_bookName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jl_bookName.setForeground(new java.awt.Color(78, 168, 214));
+        jl_bookName.setText("Nombre:");
+        jPanel1.add(jl_bookName, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 90, 90, 30));
 
         js_Line1.setBackground(new java.awt.Color(60, 63, 65));
         js_Line1.setForeground(new java.awt.Color(45, 45, 45));
         js_Line1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jPanel1.add(js_Line1, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 120, 230, 10));
 
-        jl_bookname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jl_bookname.setText("nombre");
-        jPanel1.add(jl_bookname, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 90, 230, 20));
+        jl_booknameShow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(jl_booknameShow, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 90, 230, 20));
 
         jb_accept.setText("Aceptar");
+        jb_accept.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_acceptMouseClicked(evt);
+            }
+        });
         jb_accept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_acceptActionPerformed(evt);
@@ -184,8 +188,14 @@ public class BookLoan extends javax.swing.JFrame {
 
         jseparator.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jseparator, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, 10, 470));
-        jPanel1.add(jDatePrestamoBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 250, -1, -1));
-        jPanel1.add(jDateDevolucionBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 340, -1, -1));
+        jPanel1.add(jDatePrestamoBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 250, -1, -1));
+        jPanel1.add(jDateDevolucionBooks, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 330, -1, -1));
+
+        jl_bookExit2.setBackground(new java.awt.Color(78, 168, 214));
+        jl_bookExit2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jl_bookExit2.setForeground(new java.awt.Color(78, 168, 214));
+        jl_bookExit2.setText("Fecha de prestamo:");
+        jPanel1.add(jl_bookExit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 170, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1060, 580));
 
@@ -215,7 +225,7 @@ public class BookLoan extends javax.swing.JFrame {
 
     private void jb_acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_acceptActionPerformed
         try {
-            borrowedBooks();
+            borrowedBooks(); 
         } catch (IOException ex) {
             Logger.getLogger(BookLoan.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -223,6 +233,26 @@ public class BookLoan extends javax.swing.JFrame {
         }
         showMatrix();
     }//GEN-LAST:event_jb_acceptActionPerformed
+
+    private void jt_booksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jt_booksMouseClicked
+       
+    }//GEN-LAST:event_jt_booksMouseClicked
+
+    private void jb_acceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_acceptMouseClicked
+         /* bookLoansFile bookLF = new bookLoansFile();
+          String carnet = jtf_carnetLoan.getText();
+          String dateExit = jDatePrestamoBooks.getDate()+"";
+          String dateReturn = jDateDevolucionBooks.getDate()+"";
+          String bookName = jl_booknameShow.getText();
+          int isbn = Integer.parseInt(jl_isbnShow.getText());
+          String subject = "subject";
+          String condition="condition";
+          String type = "type";
+          int year = 0;
+          boolean available = true;
+          
+          books = new Books(bookName, subject, condition, type, year, isbn, true);*/
+    }//GEN-LAST:event_jb_acceptMouseClicked
 
     //Muestra la la matriz con los libros ingresados en un table
    public void showMatrix(){
@@ -260,8 +290,8 @@ public class BookLoan extends javax.swing.JFrame {
       String matrixTemp [][] = new String[matrix1.length][7]; 
    for (int i=0; i<matrix1.length; i++){
        if (autocomplete.getItemSelected().equals(matrix1[i][0])){
-            jl_bookname.setText(matrix1[i][0]);
-            jl_isbn.setText(matrix1[i][4]);
+            jl_booknameShow.setText(matrix1[i][0]);
+            jl_isbnShow.setText(matrix1[i][4]);
             matrixTemp[0][0]=matrix1[i][0];
             matrixTemp[0][1]=matrix1[i][1];
             matrixTemp[0][2]=matrix1[i][2];
@@ -279,16 +309,17 @@ public class BookLoan extends javax.swing.JFrame {
    
    //Prestamo de libros
    public void borrowedBooks() throws IOException, ClassNotFoundException{
-      FileSerializable file = new FileSerializable("bookInfo.dat");
+            FileSerializable file = new FileSerializable("bookLoans.dat");
             ArrayList<Object> arrayListObjects = file.readSerializeBooks();
             ArrayList<Books> arrayListBooksr = new ArrayList<Books>();
             
             for(int i=0; i<arrayListObjects.size(); i++){
             arrayListBooksr.add((Books)arrayListObjects.get(i));
-            if(autocomplete.getItemSelected().equals(arrayListBooksr.get(i).getName())&& arrayListBooksr.get(i).isBorrowedBooks()== true){
+            if((autocomplete.getItemSelected()!=null && autocomplete.getItemSelected().equals(arrayListBooksr.get(i).getName()!=null)&& arrayListBooksr.get(i).isBorrowedBooks()== false)){
                 JOptionPane.showMessageDialog(null, "El libro "+autocomplete.getItemSelected()+" ya ha sido prestado");
             }
-            if (autocomplete.getItemSelected().equals(arrayListBooksr.get(i).getName()) && arrayListBooksr.get(i).isBorrowedBooks()== false){
+            if (autocomplete.getItemSelected()!=null && autocomplete.getItemSelected().equals(arrayListBooksr.get(i).getName()!=null) && arrayListBooksr.get(i).isBorrowedBooks()== true){
+                JOptionPane.showMessageDialog(null, "Su prestamo fue hecho exitosamente.");
                 arrayListBooksr.get(i).setBorrowedBooks(true);
             }
             file.fileDelete("bookInfo.dat");
@@ -345,12 +376,12 @@ public class BookLoan extends javax.swing.JFrame {
     private javax.swing.JButton jb_accept;
     private javax.swing.JButton jb_back;
     private javax.swing.JButton jb_find;
-    private javax.swing.JLabel jl_bookExit;
-    private javax.swing.JLabel jl_bookExit1;
-    private javax.swing.JLabel jl_bookName1;
-    private javax.swing.JLabel jl_bookName2;
-    private javax.swing.JLabel jl_bookname;
-    private javax.swing.JLabel jl_isbn;
+    private javax.swing.JLabel jl_ISBN;
+    private javax.swing.JLabel jl_bookExit2;
+    private javax.swing.JLabel jl_bookName;
+    private javax.swing.JLabel jl_bookReturn;
+    private javax.swing.JLabel jl_booknameShow;
+    private javax.swing.JLabel jl_isbnShow;
     private javax.swing.JLabel jl_logo;
     private javax.swing.JLabel jl_slogan;
     private javax.swing.JPanel jp_header;

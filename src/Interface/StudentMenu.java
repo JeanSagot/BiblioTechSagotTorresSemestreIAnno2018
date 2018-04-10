@@ -274,6 +274,9 @@ public class StudentMenu extends javax.swing.JFrame {
             }
         });
         jl_materialIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jl_materialIconMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jl_materialIconMouseExited(evt);
             }
@@ -296,6 +299,9 @@ public class StudentMenu extends javax.swing.JFrame {
             }
         });
         jl_bookIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jl_bookIconMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jl_bookIconMouseExited(evt);
             }
@@ -315,6 +321,11 @@ public class StudentMenu extends javax.swing.JFrame {
         jb_goReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_Feed_In_64px.png"))); // NOI18N
         jb_goReturn.setText("Devolver libros o materiales");
         jb_goReturn.setBorderPainted(false);
+        jb_goReturn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jb_goReturnMouseClicked(evt);
+            }
+        });
         jb_goReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_goReturnActionPerformed(evt);
@@ -405,17 +416,9 @@ public class StudentMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jtf_CarnetMouseClicked
 
     private void jb_logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_logInActionPerformed
-//<<<<<<< HEAD
-    //BookLoan booloan= new BookLoan();
-     MaterialLoan material=new MaterialLoan();
-     material.setVisible(true);
-        //JP_Register.setVisible(false); 
-//=======
-  //   BookLoan booloan= new BookLoan();
-    
+
      JP_Register.setVisible(false);
         //this.setVisible(false); 
-//>>>>>>> 15152250a8f0d39fd697437aa819c435ef746885
      
         String carnet = makeCarnet(jcb_career1.getSelectedItem()+"",
                                       jcb_year.getSelectedItem()+""); 
@@ -462,7 +465,7 @@ public class StudentMenu extends javax.swing.JFrame {
         try {
             
             if(studRegistry.findCarnet(carnet) == false){
-            studs = new students(jcb_career1.getSelectedItem()+"", Integer.parseInt(jcb_year.getSelectedItem()+""), carnet,"");
+            studs = new students(jcb_career1.getSelectedItem()+"", Integer.parseInt(jcb_year.getSelectedItem()+""), carnet);
             studRegistry.addEndRecord(studs);
             JOptionPane.showMessageDialog(null, "El estudiante se ingreso correctamente");
             JP_Register.setVisible(false);
@@ -497,6 +500,24 @@ public class StudentMenu extends javax.swing.JFrame {
         returnFrame = new returnFrame();
         returnFrame.setVisible(true);
     }//GEN-LAST:event_jb_goReturnActionPerformed
+
+    private void jl_bookIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_bookIconMouseClicked
+        this.setVisible(false);
+        BookLoan bookL = new BookLoan();
+        bookL.setVisible(true);
+    }//GEN-LAST:event_jl_bookIconMouseClicked
+
+    private void jl_materialIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_materialIconMouseClicked
+        this.setVisible(false);
+        MaterialLoan materialL = new MaterialLoan();
+        materialL.setVisible(true);
+    }//GEN-LAST:event_jl_materialIconMouseClicked
+
+    private void jb_goReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_goReturnMouseClicked
+       returnFrame returnF = new returnFrame();
+       this.setVisible(false);
+       returnF.setVisible(true);
+    }//GEN-LAST:event_jb_goReturnMouseClicked
 
     
     //Se hace el carnet segun lo que escogio el estudiante

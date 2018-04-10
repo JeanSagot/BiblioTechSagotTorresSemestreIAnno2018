@@ -22,13 +22,12 @@ public class MaterialLoan extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         showMatrix();
         Autocomplete();
+        jt_Materials.setDefaultEditor(Object.class, null);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDatePickerUtil1 = new org.jdatepicker.util.JDatePickerUtil();
-        utilDateModel1 = new org.jdatepicker.impl.UtilDateModel();
         jPanel1 = new javax.swing.JPanel();
         jtf_findMaterial = new javax.swing.JTextField();
         jsp_materials = new javax.swing.JScrollPane();
@@ -54,14 +53,8 @@ public class MaterialLoan extends javax.swing.JFrame {
         js_Line3 = new javax.swing.JSeparator();
         jl_typeShow = new javax.swing.JLabel();
         jl_conditionShow = new javax.swing.JLabel();
-<<<<<<< HEAD
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
-        dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
-=======
         jDatePrestamoMaterials = new com.toedter.calendar.JDateChooser();
         jDateDevolucionMaterials = new com.toedter.calendar.JDateChooser();
->>>>>>> f0c56dc9460b09e178784162b8adc0a9ba3efe81
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -225,21 +218,6 @@ public class MaterialLoan extends javax.swing.JFrame {
         jPanel1.add(jDatePrestamoMaterials, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 370, -1, -1));
         jPanel1.add(jDateDevolucionMaterials, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 440, -1, -1));
 
-        jXDatePicker1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXDatePicker1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jXDatePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 430, -1, -1));
-
-        jXDatePicker2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXDatePicker2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jXDatePicker2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 370, -1, -1));
-        jPanel1.add(dateChooserCombo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 440, -1, -1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -285,15 +263,6 @@ public class MaterialLoan extends javax.swing.JFrame {
     selectMaterial();
     }//GEN-LAST:event_jb_findActionPerformed
 
-<<<<<<< HEAD
-    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jXDatePicker1ActionPerformed
-
-    private void jXDatePicker2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXDatePicker2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jXDatePicker2ActionPerformed
-=======
     private void jb_acceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_acceptActionPerformed
         try {
             borrowedBooks();
@@ -304,7 +273,6 @@ public class MaterialLoan extends javax.swing.JFrame {
         }
         showMatrix();
     }//GEN-LAST:event_jb_acceptActionPerformed
->>>>>>> f0c56dc9460b09e178784162b8adc0a9ba3efe81
       //Muestra la la matriz con los libros ingresados en un table
       public void showMatrix(){
          FileSerializable file = new FileSerializable("MaterialInfo.dat");
@@ -344,6 +312,7 @@ public class MaterialLoan extends javax.swing.JFrame {
             jl_typeShow.setText(matrix1[i][1]);
             jl_conditionShow.setText(matrix1[i][2]);
             jl_propsShow.setText(matrix1[i][4]);
+            
             
             matrixTemp[0][0]=matrix1[i][0];
             matrixTemp[0][1]=matrix1[i][1];
@@ -389,6 +358,7 @@ public class MaterialLoan extends javax.swing.JFrame {
      //Muestra las opciones a escoger en la barra buscadora
      public void Autocomplete(){
         autocomplete = new TextAutoCompleter(jtf_findMaterial);
+        
         for (int i=0; i<matrix1.length; i++){
           autocomplete.addItem(matrix1[i][0]);
         }
@@ -428,16 +398,9 @@ public class MaterialLoan extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-<<<<<<< HEAD
-    private datechooser.beans.DateChooserCombo dateChooserCombo1;
-    private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
-=======
     private com.toedter.calendar.JDateChooser jDateDevolucionMaterials;
     private com.toedter.calendar.JDateChooser jDatePrestamoMaterials;
->>>>>>> f0c56dc9460b09e178784162b8adc0a9ba3efe81
     private javax.swing.JPanel jPanel1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
-    private org.jdesktop.swingx.JXDatePicker jXDatePicker2;
     private javax.swing.JButton jb_accept;
     private javax.swing.JButton jb_back;
     private javax.swing.JButton jb_find;
@@ -462,6 +425,5 @@ public class MaterialLoan extends javax.swing.JFrame {
     private javax.swing.JScrollPane jsp_materials;
     private javax.swing.JTable jt_Materials;
     private javax.swing.JTextField jtf_findMaterial;
-    private org.jdatepicker.impl.UtilDateModel utilDateModel1;
     // End of variables declaration//GEN-END:variables
 }
